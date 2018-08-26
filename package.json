@@ -22,6 +22,7 @@
     "apollo-boost": "^0.1.14",
     "axios": "^0.18.0",
     "expo": "^28.0.1",
+    "express": "^4.16.3",
     "graphql": "^0.13.2",
     "js-cookie": "^2.2.0",
     "react": "^16.3.1",
@@ -31,6 +32,8 @@
     "react-native-elements": "^0.19.1",
     "react-native-wheel-scroll-picker": "^0.1.9",
     "react-navigation": "^2.11.2",
+    "react-navigation-header-buttons": "^2.1.0",
+    "socket.io": "^2.1.1",
     "styled-components": "^3.4.4"
   }
 }

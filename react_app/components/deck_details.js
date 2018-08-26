@@ -4,27 +4,36 @@ import { Button, Card } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
 
+import SocketIOClient from 'socket.io-client';
+
 import { local_ngrok_site } from '../utils/needed_const';
+import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
+
 
 export default class DeckDetailsScreen extends React.Component {
+    static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <MaterialHeaderButtons>
+          <hItem title="add" iconName="arrow-back" onPress={navigation.getParam('discIt')} />
+        </MaterialHeaderButtons>
+      ),
+    };
+  };
 
   constructor(props) {
     super(props);
     const { navigation } = this.props;
     this.state = {
       deckId: navigation.getParam('chosenDeckId', 'details not working').item.id,
-      isTextShowing: true,
       cardSet: []
     }
-  }
-
-  changeCard = () => {
-    this.setState(prevState => ({
-      isTextShowing: !prevState.isTextShowing
-    }));
+    this.socket = SocketIOClient('http://16722b69.ngrok.io');
   }
 
   componentDidMount() {
+    this.props.navigation.setParams({ discIt: this.discIt})
+
     let deckId = this.state.deckId
     axios({
         url: `${local_ngrok_site}/graphql`,
@@ -60,6 +69,15 @@ export default class DeckDetailsScreen extends React.Component {
       })
   }
 
+  discIt = () => {
+    this.socket.disconnect();
+    this.props.navigation.goBack();
+  }
+
+  sendCardData = () => {
+    this.socket.emit('gameServer', this.state.cardDeck);
+  }
+
   render() {
     const cardSet = this.state.cardSet
     const deckName = this.state.deckName
@@ -74,11 +92,9 @@ export default class DeckDetailsScreen extends React.Component {
           keyExtractor={(item, index) => index}
         />
         <Button
-              title="Choose This Deck"
+              title="Choose This Deck/Start Game"
               style={{margin: 20}}
-              onPress={() => {
-                  Alert.alert('Poop')
-              }}
+              onPress={this.sendCardData}
         />
       </View>
     );
