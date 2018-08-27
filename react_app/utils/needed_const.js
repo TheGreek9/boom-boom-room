@@ -9,5 +9,7 @@ for (i = 1; i <= numberOfPlayers; i++) {
 export const numberList = daNumberList;
 
 
-export const local_ngrok_site = 'http://94b15c3d.ngrok.io';
+export const local_ngrok_site = 'https://4eedecf1.ngrok.io';
+
+export const ngrok_server_site = 'https://8da23d66.ngrok.io';
 

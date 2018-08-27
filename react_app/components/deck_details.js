@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import SocketIOClient from 'socket.io-client';
 
-import { local_ngrok_site } from '../utils/needed_const';
+import { local_ngrok_site, ngrok_server_site } from '../utils/needed_const';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 
 
@@ -15,7 +15,7 @@ export default class DeckDetailsScreen extends React.Component {
     return {
       headerLeft: (
         <MaterialHeaderButtons>
-          <hItem title="add" iconName="arrow-back" onPress={navigation.getParam('discIt')} />
+          <hItem title="add" iconName="arrow-back" onPress={navigation.getParam('discBack')} />
         </MaterialHeaderButtons>
       ),
     };
@@ -28,11 +28,11 @@ export default class DeckDetailsScreen extends React.Component {
       deckId: navigation.getParam('chosenDeckId', 'details not working').item.id,
       cardSet: []
     }
-    this.socket = SocketIOClient('http://16722b69.ngrok.io');
+    this.socket = SocketIOClient(ngrok_server_site);
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ discIt: this.discIt})
+    this.props.navigation.setParams({ discBack: this.discBack})
 
     let deckId = this.state.deckId
     axios({
@@ -69,13 +69,15 @@ export default class DeckDetailsScreen extends React.Component {
       })
   }
 
-  discIt = () => {
+  discBack = () => {
     this.socket.disconnect();
     this.props.navigation.goBack();
   }
 
   sendCardData = () => {
-    this.socket.emit('gameServer', this.state.cardDeck);
+    this.socket.emit('deck-data', this.state.cardDeck);
+    this.socket.disconnect();
+    this.props.navigation.navigate('GameLobby');
   }
 
   render() {

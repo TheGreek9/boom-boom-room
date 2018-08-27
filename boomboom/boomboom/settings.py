@@ -25,7 +25,7 @@ SECRET_KEY = '%-im127$)nioqb(i5a7@-na+drp94ia49e*iqv%&=%p7((2)+s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '94b15c3d.ngrok.io']
+ALLOWED_HOSTS = ['localhost', '4eedecf1.ngrok.io']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'boomboomgame.apps.BoomboomgameConfig',
     'graphene_django',
+    'django_extensions',
 ]
 
 GRAPHENE = {

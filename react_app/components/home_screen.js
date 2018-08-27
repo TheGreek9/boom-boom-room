@@ -47,9 +47,16 @@ export default class HomeScreen extends Component {
             <Button
               title="Choose Deck"
               onPress={() => {
-              this.props.navigation.navigate('CardSetList', {
-                num_of_players: num_of_players
-              })
+                  this.props.navigation.navigate('CardSetList', {
+                    num_of_players: num_of_players
+                  })
+              }}
+            />
+            <Button
+              title="Join Game"
+              style={{margin: 20}}
+              onPress={() => {
+                  this.props.navigation.navigate('GameLobby')
               }}
             />
           </View>
