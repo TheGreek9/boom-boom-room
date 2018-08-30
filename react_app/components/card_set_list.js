@@ -4,7 +4,7 @@ import { Button, Card } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
 
-import { local_ngrok_site } from '../utils/needed_const';
+import { ngrok_django_site } from '../utils/needed_const';
 
 export default class CardSetListScreen extends React.Component {
 
@@ -28,7 +28,7 @@ export default class CardSetListScreen extends React.Component {
   componentDidMount() {
     let num = this.state.numberOfPlayers
     axios({
-        url: `${local_ngrok_site}/graphql`,
+        url: `${ngrok_django_site}/graphql`,
         method: 'post',
         data: {
             query: `

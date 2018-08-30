@@ -39,12 +39,15 @@ function ColorShare(props) {
   )
 }
 
-export default class CardDetailsScreen extends React.Component {
+export default class CardDetails extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            isTextShowing: true
+            isTextShowing: true,
+            title: this.props.title,
+            color: this.props.color,
+            description: this.props.description
         }
     }
 

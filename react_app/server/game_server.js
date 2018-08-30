@@ -7,19 +7,33 @@ app.get('/', function(req, res){
    res.sendFile(__dirname + '/index_server.html');
 });
 
-var connection_count = 0;
-var socket_count = 0;
+var connectionCount = 0;
+var numberOfPlayers;
+var cardDeck = {};
+var userCount = 0;
 
 io.on('connection', function(socket){
-  console.log('A new user is connected');
-
-  socket.on('deck-data', function(msg){
-    console.log('message sent from phone');
-    io.emit('gameServer', shuffle.shuffle(msg.cards)[0]);
+userCount++;
+console.log('a user connected, the count is now:' + userCount)
+  socket.on('gameLobby', function() {
+      connectionCount++;
+      if (connectionCount == numberOfPlayers) {
+        var count = 0;
+        for (var sock in io.sockets.sockets) {
+            io.to(sock).emit('gameServer', cardDeck[count])
+            count++;
+        }
+      }
+  })
+  socket.on('deckData', function(msg){
+    connectionCount++;
+    numberOfPlayers = msg.numberOfPlayers;
+    cardDeck = shuffle.shuffle(msg.cards)
   });
-
   socket.on('disconnect', function(){
-    console.log('a user disconnected');
+    connectionCount --;
+    userCount--;
+    console.log('A user disconnected, count is now:' + userCount)
   })
 });
 

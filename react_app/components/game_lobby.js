@@ -6,8 +6,9 @@ import axios from 'axios';
 
 import SocketIOClient from 'socket.io-client';
 
-import { local_ngrok_site, ngrok_server_site } from '../utils/needed_const';
+import { ngrok_game_server_site } from '../utils/needed_const';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
+import CardDetails from './card_details'
 
 
 export default class GameLobbyScreen extends React.Component {
@@ -25,15 +26,17 @@ export default class GameLobbyScreen extends React.Component {
     super(props);
     const { navigation } = this.props;
     this.state = {
-        cardText: 'nothing as of yet'
+        cardText: 'nothing as of yet',
+        hasCardDetails: false
     }
 
-    this.socket = SocketIOClient(ngrok_server_site);
+    this.socket = SocketIOClient(ngrok_game_server_site);
+    this.socket.emit('gameLobby', true)
     this.socket.on('gameServer', this.setData)
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ discIt: this.discIt})
+    this.props.navigation.setParams({ discIt: this.discIt })
   }
 
   discIt = () => {
@@ -43,16 +46,22 @@ export default class GameLobbyScreen extends React.Component {
 
   setData = (text) => {
     this.setState(prevState => ({
-      cardText: text
+      cardText: text,
+      hasCardDetails: true
     }));
   }
 
   render() {
-  const daText = this.state.cardText
+  const title = this.state.cardText.title
+  const color = this.state.cardText.color
+  const description = this.state.cardText.description
+  const test = this.state.hasCardDetails ? <CardDetails
+        title={title}
+        color={color}
+        description={description}
+      /> : 'Nothing as of yet'
     return (
-      <View style={styles.container}>
-        <Text>{JSON.stringify(daText)}</Text>
-      </View>
+      test
     );
   }
 }

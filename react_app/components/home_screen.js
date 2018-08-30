@@ -4,7 +4,6 @@ import { Button, Card } from 'react-native-elements';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 import { numberList } from '../utils/needed_const';
-import DeckDetailsScreen from './deck_details';
 
 export default class HomeScreen extends Component {
     constructor(props){

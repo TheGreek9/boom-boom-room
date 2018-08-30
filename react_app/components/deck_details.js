@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import SocketIOClient from 'socket.io-client';
 
-import { local_ngrok_site, ngrok_server_site } from '../utils/needed_const';
+import { ngrok_django_site, ngrok_game_server_site } from '../utils/needed_const';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 
 
@@ -28,7 +28,7 @@ export default class DeckDetailsScreen extends React.Component {
       deckId: navigation.getParam('chosenDeckId', 'details not working').item.id,
       cardSet: []
     }
-    this.socket = SocketIOClient(ngrok_server_site);
+    this.socket = SocketIOClient(ngrok_game_server_site);
   }
 
   componentDidMount() {
@@ -36,7 +36,7 @@ export default class DeckDetailsScreen extends React.Component {
 
     let deckId = this.state.deckId
     axios({
-        url: `${local_ngrok_site}/graphql`,
+        url: `${ngrok_django_site}/graphql`,
         method: 'post',
         data: {
             query: `
@@ -75,7 +75,7 @@ export default class DeckDetailsScreen extends React.Component {
   }
 
   sendCardData = () => {
-    this.socket.emit('deck-data', this.state.cardDeck);
+    this.socket.emit('deckData', this.state.cardDeck);
     this.socket.disconnect();
     this.props.navigation.navigate('GameLobby');
   }
