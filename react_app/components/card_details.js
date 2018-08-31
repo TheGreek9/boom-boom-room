@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Card, Divider } from 'react-native-elements';
+import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
 
@@ -8,12 +9,16 @@ function CardShare(props) {
   return (
       <Card
         title={props.title}
-        image={require('../../boomboom/images/blue_team.png')}
-        imageStyle={styles.image}>
+      >
+        <Image
+            source={require('../../boomboom/images/blue_team.png')}
+            style={styles.image}
+        />
+          <Divider style={styles.divider} />
         <Text>
           <Text style={{fontWeight: "bold"}}>GOAL</Text>: {props.description}
         </Text>
-        <Button
+        <BoomButton
           backgroundColor='#03A9F4'
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 20}}
           title="Color Share"
@@ -29,7 +34,7 @@ function ColorShare(props) {
         <Text style={{color: 'white'}}>
             THE BLUE TEAM
         </Text>
-        <Button
+        <BoomButton
           backgroundColor='#03A9F4'
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 200}}
           title="Card Share"
@@ -99,5 +104,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     width: 300,
     height: 400,
+  },
+  divider: {
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: 'grey'
   }
 });

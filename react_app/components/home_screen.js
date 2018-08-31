@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Card } from 'react-native-elements';
+import BoomButton from '../utils/Button';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 import { numberList } from '../utils/needed_const';
@@ -43,7 +44,7 @@ export default class HomeScreen extends Component {
                 />
                 <Text style={{margin: 20}}> You are playing with {num_of_players} players</Text>
             </View>
-            <Button
+            <BoomButton
               title="Choose Deck"
               onPress={() => {
                   this.props.navigation.navigate('CardSetList', {
@@ -51,9 +52,8 @@ export default class HomeScreen extends Component {
                   })
               }}
             />
-            <Button
+            <BoomButton
               title="Join Game"
-              style={{margin: 20}}
               onPress={() => {
                   this.props.navigation.navigate('GameLobby')
               }}

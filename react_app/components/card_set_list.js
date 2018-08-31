@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Card } from 'react-native-elements';
+import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
 
@@ -65,7 +66,7 @@ export default class CardSetListScreen extends React.Component {
             {title: cardset_name, data: cards_list},
           ]}
           renderItem={({item}) =>
-            <Button
+            <BoomButton
               title={item.name}
               onPress={() => {
                   this.props.navigation.navigate('DeckDetails', {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Card } from 'react-native-elements';
+import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
 
@@ -93,7 +94,7 @@ export default class DeckDetailsScreen extends React.Component {
           renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
         />
-        <Button
+        <BoomButton
               title="Choose This Deck/Start Game"
               style={{margin: 20}}
               onPress={this.sendCardData}
