@@ -8,7 +8,7 @@ function CardShare(props) {
   return (
       <Card
         title={props.title}
-        image={{uri: 'https://cf.geekdo-images.com/medium/img/g8c7-JXOAIrnQwi2SzK9aTqI5yk=/fit-in/500x500/filters:no_upscale()/pic1836130.png'}}
+        image={require('../../boomboom/images/blue_team.png')}
         imageStyle={styles.image}>
         <Text>
           <Text style={{fontWeight: "bold"}}>GOAL</Text>: {props.description}
@@ -90,13 +90,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   image: {
-    width: 200,
-    height: 300,
-    marginLeft: 70,
+    width: 250,
+    height: 350,
+    marginLeft: 20,
+    marginRight: 20
   },
   card2: {
     backgroundColor: 'blue',
-    width: 200,
-    height: 300,
+    width: 300,
+    height: 400,
   }
 });
