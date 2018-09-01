@@ -1,21 +1,20 @@
 import React from 'react';
 import { Button } from 'react-native-elements';
-import {StyleSheet} from "react-native";
+import {StyleSheet, TouchableOpacity} from "react-native";
 
 export default class BoomButton extends React.Component{
     render(){
         const { onPress, title } = this.props
         return (
             <Button
-                    raised
-                    buttonStyle={styles.button}
-                    title={title}
-                    onPress={onPress}
+                Component={TouchableOpacity}
+                raised
+                buttonStyle={styles.button}
+                title={title}
+                onPress={onPress}
             />
         )
-
     }
-
 }
 
 const styles = StyleSheet.create({

@@ -22,8 +22,12 @@ export default class HomeScreen extends Component {
     render () {
         let num_of_players = this.state.num_players
         return (
-          <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }}>
-            <Text style={styles.title}>Welcome to Two Rooms and A Boom</Text>
+          <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <Image
+              source={require('../../boomboom/images/boom_boom_title.png')}
+              style={styles.image}
+              resizeMode='center'
+            />
             <View style={{height: 280}}>
                 <Text style={{margin: 10}}> Please Choose Number of Players:</Text>
                 <ScrollPicker
@@ -65,11 +69,19 @@ export default class HomeScreen extends Component {
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150
+  },
   title: {
     margin: 10,
     fontSize: 20,
     textAlign: 'center'
-
-
+  },
+  image: {
+   height: 150
   }
 });

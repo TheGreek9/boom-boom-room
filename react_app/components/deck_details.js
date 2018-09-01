@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, List, ListItem } from 'react-native-elements';
 import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
@@ -86,14 +86,22 @@ export default class DeckDetailsScreen extends React.Component {
     const deckName = this.state.deckName
     return (
       <View style={styles.container}>
-        <SectionList
-          sections={[
-            {title: deckName, data: cardSet},
-          ]}
-          renderItem={({item}) => <Text> {item.title} </Text>}
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-        />
+      <Text>Cards in Chosen Deck:</Text>
+      <ScrollView>
+        <List>
+          {
+            cardSet.map((item) => (
+              <ListItem
+                roundAvatar
+                hideChevron
+                avatar={require('../../boomboom/images/boom_boom_title.png')}
+                key={item.id}
+                title={item.title}
+              />
+            ))
+          }
+        </List>
+      </ScrollView>
         <BoomButton
               title="Choose This Deck/Start Game"
               style={{margin: 20}}

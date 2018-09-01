@@ -55,11 +55,15 @@ export default class GameLobbyScreen extends React.Component {
   const title = this.state.cardText.title
   const color = this.state.cardText.color
   const description = this.state.cardText.description
-  const test = this.state.hasCardDetails ? <CardDetails
+  const showCardDetails = <CardDetails
         title={title}
         color={color}
         description={description}
-      /> : 'Nothing as of yet'
+      />
+  const preLobbyView = <View style={styles.lobbyView}>
+                         <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
+                       </View>
+  const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
     return (
       test
     );
@@ -75,6 +79,16 @@ const styles = StyleSheet.create({
     width: 200,
     height: 300,
     marginLeft: 70,
+  },
+  lobbyView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  lobbyText: {
+    fontSize: 21,
+    marginRight: 20,
+    marginLeft: 20
   },
   card2: {
     backgroundColor: 'blue'

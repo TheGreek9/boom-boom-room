@@ -2,31 +2,9 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import BoomButton from '../utils/Button'
+import BoomCard from '../utils/Card'
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
-
-function CardShare(props) {
-  return (
-      <Card
-        title={props.title}
-      >
-        <Image
-            source={require('../../boomboom/images/blue_team.png')}
-            style={styles.image}
-        />
-          <Divider style={styles.divider} />
-        <Text>
-          <Text style={{fontWeight: "bold"}}>GOAL</Text>: {props.description}
-        </Text>
-        <BoomButton
-          backgroundColor='#03A9F4'
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 20}}
-          title="Color Share"
-          onPress={props.onPress}
-        />
-      </Card>
-  )
-}
 
 function ColorShare(props) {
   return (
@@ -68,20 +46,26 @@ export default class CardDetails extends React.Component {
     let title = this.state.title;
     let color = this.state.color;
     let description = this.state.description;
+    let imageSource;
 
     if (textShow) {
-      display = <CardShare
-        onPress={this.changeCard}
-        title={title}
-        description={description}
-        />;
+      imageSource = require('../../boomboom/images/blue_team.png')
+      title=this.state.title
+      description = this.state.description
     } else {
-      display = <ColorShare onPress={this.changeCard} />;
+      imageSource = require('../../boomboom/images/blue_background.png')
+      title='Blue Team'
+      description = 'You are on the Blue Team'
     }
 
     return (
       <View style={styles.container}>
-        {display}
+        <BoomCard
+          onPress={this.changeCard}
+          title={title}
+          description={description}
+          imageSource={imageSource}
+        />;
       </View>
     );
     }

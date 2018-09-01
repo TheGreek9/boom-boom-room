@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, List, ListItem } from 'react-native-elements';
 import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
 import axios from 'axios';
@@ -60,24 +60,22 @@ export default class CardSetListScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-      <Text style={styles.item}>Please Choose A Deck for {num_players} Players</Text>
-        <SectionList
-          sections={[
-            {title: cardset_name, data: cards_list},
-          ]}
-          renderItem={({item}) =>
-            <BoomButton
-              title={item.name}
-              onPress={() => {
+        <Text style={styles.item}>Please Choose A Deck for {num_players} Players</Text>
+        <List>
+          {
+            cards_list.map((item) => (
+              <ListItem
+                key={item.id}
+                title={item.name}
+                onPress={() => {
                   this.props.navigation.navigate('DeckDetails', {
                     chosenDeckId: {item}
                   })
               }}
-            />
+              />
+            ))
           }
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-        />
+        </List>
       </View>
     );
   }

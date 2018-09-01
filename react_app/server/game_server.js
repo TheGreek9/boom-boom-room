@@ -17,6 +17,7 @@ userCount++;
 console.log('a user connected, the count is now:' + userCount)
   socket.on('gameLobby', function() {
       connectionCount++;
+      console.log('connection count is now: ' + connectionCount)
       if (connectionCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
@@ -33,7 +34,11 @@ console.log('a user connected, the count is now:' + userCount)
   socket.on('disconnect', function(){
     connectionCount --;
     userCount--;
+    if (connectionCount < 0) {
+      connectionCount = 0
+    }
     console.log('A user disconnected, count is now:' + userCount)
+    console.log('connection count is now: ' + connectionCount)
   })
 });
 
