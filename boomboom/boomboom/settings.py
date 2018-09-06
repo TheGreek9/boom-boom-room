@@ -25,7 +25,7 @@ SECRET_KEY = '%-im127$)nioqb(i5a7@-na+drp94ia49e*iqv%&=%p7((2)+s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '6675305f.ngrok.io']
+ALLOWED_HOSTS = ['localhost', '1a7c60bf.ngrok.io']
 
 
 # Application definition
@@ -125,3 +125,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = '/Users/Spyro/Developer/boom_boom/boomboom/images'

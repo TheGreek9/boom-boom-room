@@ -20,18 +20,20 @@
       $(function () {
         var socket = io();
         $('form').submit(function(){
-          socket.emit('gameServer', $('#m').val());
+          socket.emit('gameLobby', $('#m').val());
           $('#m').val('');
           return false;
         });
-        socket.on('gameServer', function(msg){
-          $('#messages').append($('<p>').text(msg));
+        socket.on('gameLobby', function(msg){
+          console.log('test')
+          console.log(msg)
+          $('#messages').append($('<p>').text(JSON.stringify(msg)));
         });
       });
 </script>
     <div id="messages"></div>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" /><button>Connect to game server</button>
     </form>
   </body>
 </html>
