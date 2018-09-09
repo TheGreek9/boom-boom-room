@@ -9,6 +9,7 @@ import SocketIOClient from 'socket.io-client';
 
 import { ngrok_django_site, ngrok_game_server_site } from '../utils/needed_const';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
+import { imagePaths } from '../utils/ImagePaths';
 
 
 export default class DeckDetailsScreen extends React.Component {
@@ -95,7 +96,7 @@ export default class DeckDetailsScreen extends React.Component {
               <ListItem
                 roundAvatar
                 hideChevron
-                avatar={require('../../boomboom/images/boom_boom_title.png')}
+                avatar={imagePaths[item.picture]}
                 key={item.id}
                 title={item.title}
               />

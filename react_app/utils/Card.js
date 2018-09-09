@@ -7,17 +7,13 @@ import { imagePaths } from '../utils/ImagePaths'
 export default class BoomCard extends React.Component{
   render(){
     return (
-      <Card
-        title={this.props.title}
-      >
+      <Card title={this.props.title}>
         <Image
             source={imagePaths[this.props.imageSource]}
             style={styles.image}
         />
-          <Divider style={styles.divider} />
-        <Text>
-          <Text style={{fontWeight: "bold"}}>GOAL</Text>: {this.props.description}
-        </Text>
+        <Divider style={styles.divider}/>
+        <Text>GOAL: {this.props.description}</Text>
         <BoomButton
           backgroundColor='#03A9F4'
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 20}}

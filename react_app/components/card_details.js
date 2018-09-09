@@ -65,7 +65,7 @@ export default class CardDetails extends React.Component {
           title={title}
           description={description}
           imageSource={imageSource}
-        />;
+        />
       </View>
     );
     }

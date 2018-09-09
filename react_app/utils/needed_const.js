@@ -1,5 +1,5 @@
 
-let numberOfPlayers = 10;
+let numberOfPlayers = 20;
 let daNumberList = [];
 
 for (i = 1; i <= numberOfPlayers; i++) {
