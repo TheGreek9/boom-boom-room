@@ -43,19 +43,19 @@ export default class CardDetails extends React.Component {
     render() {
     let display;
     let textShow = this.state.isTextShowing;
-    let title = this.state.title;
+    let title;
     let color = this.state.color;
-    let description = this.state.description;
+    let description;
     let imageSource;
 
     if (textShow) {
-      imageSource = require('../../boomboom/images/blue_team.png')
+      imageSource = this.props.imageSource
       title=this.state.title
       description = this.state.description
     } else {
-      imageSource = require('../../boomboom/images/blue_background.png')
-      title='Blue Team'
-      description = 'You are on the Blue Team'
+      imageSource = color
+      title=`${color} Team`
+      description = `You are on the ${color} Team`
     }
 
     return (

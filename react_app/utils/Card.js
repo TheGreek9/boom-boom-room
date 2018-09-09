@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import BoomButton from '../utils/Button'
+import { imagePaths } from '../utils/ImagePaths'
 
 export default class BoomCard extends React.Component{
   render(){
@@ -10,7 +11,7 @@ export default class BoomCard extends React.Component{
         title={this.props.title}
       >
         <Image
-            source={this.props.imageSource}
+            source={imagePaths[this.props.imageSource]}
             style={styles.image}
         />
           <Divider style={styles.divider} />

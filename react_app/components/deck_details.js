@@ -52,6 +52,7 @@ export default class DeckDetailsScreen extends React.Component {
                       title
                       description
                       color
+                      picture
                     }
                   }
                 }

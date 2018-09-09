@@ -54,12 +54,15 @@ export default class GameLobbyScreen extends React.Component {
   render() {
   const title = this.state.cardText.title
   const color = this.state.cardText.color
+  const imageSource = this.state.cardText.picture
   const description = this.state.cardText.description
-  const showCardDetails = <CardDetails
+  const showCardDetails =
+    <CardDetails
         title={title}
         color={color}
+        imageSource={imageSource}
         description={description}
-      />
+    />
   const preLobbyView = <View style={styles.lobbyView}>
                          <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
                        </View>
