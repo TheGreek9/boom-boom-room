@@ -3,9 +3,9 @@ import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList
 import { Card, List, ListItem } from 'react-native-elements';
 import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
-import axios from 'axios';
 
-import { ngrok_django_site } from '../utils/needed_const';
+import { ngrok_django_site } from '../utils/NeededConstants';
+import { QueryGraphql } from '../utils/GraphqlQuery';
 
 export default class CardSetListScreen extends React.Component {
 
@@ -13,44 +13,25 @@ export default class CardSetListScreen extends React.Component {
     super(props);
     const { navigation } = this.props;
     this.state = {
-      numberOfPlayers: navigation.getParam('num_of_players', '100'),
-      isTextShowing: true,
+      numberOfPlayers: navigation.getParam('num_of_players', '0'),
       cardset_list: []
     }
 
   }
 
-  changeCard = () => {
-    this.setState(prevState => ({
-      isTextShowing: !prevState.isTextShowing
-    }));
-  }
-
   componentDidMount() {
     let num = this.state.numberOfPlayers
-    axios({
-        url: `${ngrok_django_site}/graphql`,
-        method: 'post',
-        data: {
-            query: `
-                query {
-                  playersCardSet(numOfPlayers:${num}) {
+    let query = `playersCardSet(numOfPlayers:${num}) {
                     id
                     userId
                     name
                     numberOfPlayers
-                  }
-                }
-            `
-        }
-    }).then(res => {
-        this.setState({
-            cardset_list: res.data.data.playersCardSet
-        });
-      }).catch(res => {
-        const da_data = res;
-        this.setState({cardset_list: da_data});
-      })
+                  }`
+    QueryGraphql(query).then(res => {
+       this.setState({
+        cardset_list: res.data.data.playersCardSet
+       });
+    })
   }
 
   render() {

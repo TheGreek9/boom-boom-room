@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
-import axios from 'axios';
 
 import SocketIOClient from 'socket.io-client';
 
-import { ngrok_game_server_site } from '../utils/needed_const';
+import { ngrok_game_server_site } from '../utils/NeededConstants';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import CardDetails from './card_details'
 

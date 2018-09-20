@@ -4,30 +4,13 @@ import { Card, Divider } from 'react-native-elements';
 import BoomButton from '../utils/Button'
 import BoomCard from '../utils/Card'
 import { createStackNavigator } from 'react-navigation';
-import axios from 'axios';
-
-function ColorShare(props) {
-  return (
-      <Card containerStyle={styles.card2}>
-        <Text style={{color: 'white'}}>
-            THE BLUE TEAM
-        </Text>
-        <BoomButton
-          backgroundColor='#03A9F4'
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 200}}
-          title="Card Share"
-          onPress={props.onPress}
-        />
-      </Card>
-  )
-}
 
 export default class CardDetails extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            isTextShowing: true,
+            cardFlipBool: true,
             title: this.props.title,
             color: this.props.color,
             description: this.props.description
@@ -36,38 +19,38 @@ export default class CardDetails extends React.Component {
 
     changeCard = () => {
         this.setState(prevState => ({
-          isTextShowing: !prevState.isTextShowing
+          cardFlipBool: !prevState.cardFlipBool
         }));
     }
 
     render() {
-    let display;
-    let textShow = this.state.isTextShowing;
-    let title;
-    let color = this.state.color;
-    let description;
-    let imageSource;
+        let textShow = this.state.cardFlipBool;
+        let color = this.state.color;
+        let display;
+        let title;
+        let description;
+        let imageSource;
 
-    if (textShow) {
-      imageSource = this.props.imageSource
-      title=this.state.title
-      description = this.state.description
-    } else {
-      imageSource = color
-      title=`${color} Team`
-      description = `You are on the ${color} Team`
-    }
+        if (textShow) {
+          imageSource = this.props.imageSource
+          title=this.state.title
+          description = this.state.description
+        } else {
+          imageSource = color
+          title=`${color} Team`
+          description = `You are on the ${color} Team`
+        }
 
-    return (
-      <View style={styles.container}>
-        <BoomCard
-          onPress={this.changeCard}
-          title={title}
-          description={description}
-          imageSource={imageSource}
-        />
-      </View>
-    );
+        return (
+          <View style={styles.container}>
+            <BoomCard
+              onPress={this.changeCard}
+              title={title}
+              description={description}
+              imageSource={imageSource}
+            />
+          </View>
+        );
     }
 }
 

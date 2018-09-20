@@ -3,8 +3,7 @@ import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList
 import { Card } from 'react-native-elements';
 import BoomButton from '../utils/Button';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
-
-import { numberList } from '../utils/needed_const';
+import { numberList } from '../utils/NeededConstants';
 
 export default class HomeScreen extends Component {
     constructor(props){

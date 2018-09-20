@@ -3,13 +3,11 @@ import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList
 import { Card, List, ListItem } from 'react-native-elements';
 import BoomButton from '../utils/Button'
 import { createStackNavigator } from 'react-navigation';
-import axios from 'axios';
-
 import SocketIOClient from 'socket.io-client';
-
-import { ngrok_django_site, ngrok_game_server_site } from '../utils/needed_const';
+import { ngrok_django_site, ngrok_game_server_site } from '../utils/NeededConstants';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import { imagePaths } from '../utils/ImagePaths';
+import { QueryGraphql } from '../utils/GraphqlQuery';
 
 
 export default class DeckDetailsScreen extends React.Component {
@@ -35,15 +33,8 @@ export default class DeckDetailsScreen extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ discBack: this.discBack})
-
     let deckId = this.state.deckId
-    axios({
-        url: `${ngrok_django_site}/graphql`,
-        method: 'post',
-        data: {
-            query: `
-                query {
-                  cardSet(id:${deckId}){
+    let query = `cardSet(id:${deckId}){
                     id
                     userId
                     name
@@ -55,21 +46,15 @@ export default class DeckDetailsScreen extends React.Component {
                       color
                       picture
                     }
-                  }
-                }
-            `
-        }
-    }).then(res => {
-        const da_card = res.data.data;
+                  }`
+    QueryGraphql(query).then(res => {
+       const da_card = res.data.data;
         this.setState({
             cardDeck: da_card.cardSet,
             deckName: da_card.cardSet.name,
             cardSet: da_card.cardSet.cards
         });
-      }).catch(res => {
-        const da_data = res;
-        this.setState({card: da_data});
-      })
+    })
   }
 
   discBack = () => {
