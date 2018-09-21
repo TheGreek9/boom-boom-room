@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Card, List, ListItem } from 'react-native-elements';
-import BoomButton from '../utils/Button'
-import { createStackNavigator } from 'react-navigation';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 
-import { ngrok_django_site } from '../utils/NeededConstants';
 import { QueryGraphql } from '../utils/GraphqlQuery';
+import { styles } from '../utils/StyleSheet';
 
 export default class CardSetListScreen extends React.Component {
 
@@ -40,8 +38,8 @@ export default class CardSetListScreen extends React.Component {
     const num_players = this.state.numberOfPlayers
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.item}>Please Choose A Deck for {num_players} Players</Text>
+      <View style={styles.listContainer}>
+        <Text style={styles.titleText}>Please Choose A Deck for {num_players} Players</Text>
         <List>
           {
             cards_list.map((item) => (
@@ -61,32 +59,3 @@ export default class CardSetListScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22
-  },
-  image: {
-    width: 200,
-    height: 300,
-    marginLeft: 70,
-  },
-  card2: {
-    backgroundColor: 'blue'
-  },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-});

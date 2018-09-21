@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Card, List, ListItem } from 'react-native-elements';
-import BoomButton from '../utils/Button'
-import { createStackNavigator } from 'react-navigation';
+import React from 'react';
+import { Text, View, ScrollView } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 import SocketIOClient from 'socket.io-client';
-import { ngrok_django_site, ngrok_game_server_site } from '../utils/NeededConstants';
+
+import BoomButton from '../utils/Button';
+import { ngrok_game_server_site } from '../utils/NeededConstants';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import { imagePaths } from '../utils/ImagePaths';
 import { QueryGraphql } from '../utils/GraphqlQuery';
-
+import { styles } from '../utils/StyleSheet';
 
 export default class DeckDetailsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -72,7 +72,7 @@ export default class DeckDetailsScreen extends React.Component {
     const cardSet = this.state.cardSet
     const deckName = this.state.deckName
     return (
-      <View style={styles.container}>
+      <View style={styles.listContainer}>
       <Text>Cards in Chosen Deck:</Text>
       <ScrollView>
         <List>
@@ -98,32 +98,3 @@ export default class DeckDetailsScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22
-  },
-  image: {
-    width: 200,
-    height: 300,
-    marginLeft: 70,
-  },
-  card2: {
-    backgroundColor: 'blue'
-  },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-});

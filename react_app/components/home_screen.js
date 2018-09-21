@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Image, FlatList, ScrollView, SectionList } from 'react-native';
-import { Card } from 'react-native-elements';
-import BoomButton from '../utils/Button';
+import React from 'react';
+import { Text, View, Image } from 'react-native';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
-import { numberList } from '../utils/NeededConstants';
 
-export default class HomeScreen extends Component {
+import BoomButton from '../utils/Button';
+import { numberList } from '../utils/NeededConstants';
+import { styles } from '../utils/StyleSheet';
+
+export default class HomeScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -21,10 +22,10 @@ export default class HomeScreen extends Component {
     render () {
         let num_of_players = this.state.num_players
         return (
-          <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <View style={styles.homeScreenContainer}>
             <Image
               source={require('../../boomboom/images/boom_boom_title.png')}
-              style={styles.image}
+              style={styles.homeBanner}
               resizeMode='center'
             />
             <View style={{height: 280}}>
@@ -65,22 +66,3 @@ export default class HomeScreen extends Component {
         );
     }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 150
-  },
-  title: {
-    margin: 10,
-    fontSize: 20,
-    textAlign: 'center'
-  },
-  image: {
-   height: 150
-  }
-});

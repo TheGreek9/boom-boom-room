@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Image } from 'react-native';
-import { Card, Divider } from 'react-native-elements';
-import BoomButton from '../utils/Button'
-import BoomCard from '../utils/Card'
-import { createStackNavigator } from 'react-navigation';
+import React from 'react';
+import { View } from 'react-native';
+
+import BoomCard from '../utils/Card';
+import { styles } from '../utils/StyleSheet';
 
 export default class CardDetails extends React.Component {
 
@@ -42,7 +41,7 @@ export default class CardDetails extends React.Component {
         }
 
         return (
-          <View style={styles.container}>
+          <View style={styles.cardContainer}>
             <BoomCard
               onPress={this.changeCard}
               title={title}
@@ -53,28 +52,3 @@ export default class CardDetails extends React.Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  image: {
-    width: 250,
-    height: 350,
-    marginLeft: 20,
-    marginRight: 20
-  },
-  card2: {
-    backgroundColor: 'blue',
-    width: 300,
-    height: 400,
-  },
-  divider: {
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: 'grey'
-  }
-});
