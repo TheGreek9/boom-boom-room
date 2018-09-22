@@ -49,11 +49,11 @@ export default class GameLobbyScreen extends React.Component {
     }));
   }
 
-  toGameLobby = () => {
+  toGameLobby = (userName) => {
     this.setState(prevState => ({
       isModalVisible: !this.state.isModalVisible
     }))
-    this.socket.emit('gameLobby', true)
+    this.socket.emit('gameLobby', userName)
   }
 
   render() {

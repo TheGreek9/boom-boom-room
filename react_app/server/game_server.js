@@ -11,13 +11,15 @@ var connectionCount = 0;
 var numberOfPlayers;
 var cardDeck = {};
 var userCount = 0;
+var userDict = {};
 
 io.on('connection', function(socket){
 userCount++;
-console.log('a user connected, the count is now:' + userCount)
-  socket.on('gameLobby', function() {
+console.log('The was a connection, the count is now:' + userCount)
+  socket.on('gameLobby', function(userName) {
       connectionCount++;
-      console.log('connection count is now: ' + connectionCount)
+      userDict[userName] = socket.id
+      console.log(`User ${userName} is now connected, connection count is now: ${connectionCount}`)
       if (connectionCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
@@ -26,10 +28,10 @@ console.log('a user connected, the count is now:' + userCount)
         }
       }
   })
-  socket.on('deckData', function(msg){
+  socket.on('deckData', function(deck){
     connectionCount++;
-    numberOfPlayers = msg.numberOfPlayers;
-    cardDeck = shuffle.shuffle(msg.cards)
+    numberOfPlayers = deck.numberOfPlayers;
+    cardDeck = shuffle.shuffle(deck.cards)
   });
   socket.on('disconnect', function(){
     connectionCount --;

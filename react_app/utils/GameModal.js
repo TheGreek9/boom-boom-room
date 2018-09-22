@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, Alert } from "react-native";
 import { List, ListItem } from 'react-native-elements';
 import Modal from "react-native-modal";
 
@@ -9,11 +9,11 @@ export default class GameModal extends React.Component{
     const isModalVisible = this.props.isModalVisible
     return (
       <View>
-        <Modal isVisible={isModalVisible} onBackdropPress={onPress}>
+        <Modal isVisible={isModalVisible}>
           <Text style={{color: "white"}}>Please enter your name:</Text>
           <TextInput
             style={styles.textInputStyle}
-            onSubmitEditing={onPress}
+            onSubmitEditing={(event) => onPress(event.nativeEvent.text)}
             autoCapitalize="words"
             autoFocus={true}
             returnKeyType="done"
