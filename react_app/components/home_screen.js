@@ -4,14 +4,12 @@ import { Text, View, Image } from 'react-native';
 import BoomButton from '../utils/Button';
 import Scroller from '../utils/Scroller'
 import { styles } from '../utils/StyleSheet';
-import GameModal from '../utils/GameModal';
 
 export default class HomeScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            num_players: '1',
-            isModalVisible: false
+            num_players: '1'
         }
     }
 
@@ -19,19 +17,6 @@ export default class HomeScreen extends React.Component {
         this.setState({
             num_players: data
         })
-    }
-
-    showHideModal = () => {
-        this.setState(prevState => ({
-            isModalVisible: !this.state.isModalVisible
-        }))
-    }
-
-    toGameLobby = () => {
-      this.setState(prevState => ({
-        isModalVisible: !this.state.isModalVisible
-      }))
-      this.props.navigation.navigate('GameLobby')
     }
 
     render () {
@@ -51,7 +36,6 @@ export default class HomeScreen extends React.Component {
                 />
                 <Text style={{margin: 20}}> You are playing with {num_of_players} players</Text>
             </View>
-            <GameModal isModalVisible={tester} onPress={this.toGameLobby}/>
             <BoomButton
               title="Choose Deck"
               onPress={() => {
@@ -62,7 +46,9 @@ export default class HomeScreen extends React.Component {
             />
             <BoomButton
               title="Join Game"
-              onPress={this.showHideModal}
+              onPress={() => {
+                  this.props.navigation.navigate('GameLobby')
+              }}
             />
           </View>
         );

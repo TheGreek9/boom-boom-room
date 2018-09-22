@@ -6,6 +6,7 @@ import { ngrok_game_server_site } from '../utils/NeededConstants';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import CardDetails from './card_details';
 import { styles } from '../utils/StyleSheet';
+import GameModal from '../utils/GameModal';
 
 
 export default class GameLobbyScreen extends React.Component {
@@ -24,11 +25,11 @@ export default class GameLobbyScreen extends React.Component {
     const { navigation } = this.props;
     this.state = {
         cardText: 'nothing as of yet',
-        hasCardDetails: false
+        hasCardDetails: false,
+        isModalVisible: true
     }
 
-    this.socket = SocketIOClient(ngrok_game_server_site);
-    this.socket.emit('gameLobby', true)
+    this.socket = SocketIOClient(ngrok_game_server_site)
     this.socket.on('gameServer', this.setData)
   }
 
@@ -48,11 +49,19 @@ export default class GameLobbyScreen extends React.Component {
     }));
   }
 
+  toGameLobby = () => {
+    this.setState(prevState => ({
+      isModalVisible: !this.state.isModalVisible
+    }))
+    this.socket.emit('gameLobby', true)
+  }
+
   render() {
   const title = this.state.cardText.title
   const color = this.state.cardText.color
   const imageSource = this.state.cardText.picture
   const description = this.state.cardText.description
+  let tester = this.state.isModalVisible
   const showCardDetails =
     <CardDetails
         title={title}
@@ -60,12 +69,17 @@ export default class GameLobbyScreen extends React.Component {
         imageSource={imageSource}
         description={description}
     />
-  const preLobbyView = <View style={styles.lobbyView}>
-                         <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
-                       </View>
+  const preLobbyView =
+    <Text style={styles.lobbyText}>
+      Please wait until the leader starts the game
+    </Text>
   const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
     return (
-      test
+    <View style={styles.lobbyView}>
+      {preLobbyView}
+      <GameModal isModalVisible={tester} onPress={this.toGameLobby}/>
+    </View>
+
     );
   }
 }
