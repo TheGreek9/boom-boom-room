@@ -35,5 +35,16 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  boomCardImage: {
+    width: 250,
+    height: 350,
+    marginLeft: 20,
+    marginRight: 20
+  },
+  boomCardDivider: {
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: 'grey'
   }
 })
