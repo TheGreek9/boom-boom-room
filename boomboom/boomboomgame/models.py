@@ -9,6 +9,7 @@ class Card(models.Model):
     title = models.CharField(max_length=256)
     description = models.TextField()
     picture = models.ImageField(null=True)
+    card_swap = models.BooleanField(default=False)
     color = models.CharField(max_length=50, choices=color_choices)
 
     def __str__(self):
