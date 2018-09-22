@@ -1,9 +1,8 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 import BoomButton from '../utils/Button';
-import { numberList } from '../utils/NeededConstants';
+import Scroller from '../utils/Scroller'
 import { styles } from '../utils/StyleSheet';
 
 export default class HomeScreen extends React.Component {
@@ -30,21 +29,8 @@ export default class HomeScreen extends React.Component {
             />
             <View style={{height: 280}}>
                 <Text style={{margin: 10}}> Please Choose Number of Players:</Text>
-                <ScrollPicker
-                    dataSource={numberList}
-                    selected_index={1}
-                    renderItem={(data, index, isSelected) => {
-                        //
-                    }}
+                <Scroller
                     onValueChange={(data, selectedIndex) => this.onPickerSelect(data)}
-                    wrapperHeight={160}
-                    wrapperWidth={140}
-                    wrapperBackground={'#FFFFFF'}
-                    itemHeight={60}
-                    highlightColor={'#d8d8d8'}
-                    highlightBorderWidth={2}
-                    activeItemColor={'#222121'}
-                    itemColor={'#B4B4B4'}
                 />
                 <Text style={{margin: 20}}> You are playing with {num_of_players} players</Text>
             </View>
