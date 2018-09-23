@@ -13,11 +13,9 @@ var cardDeck = {};
 var userCount = 0;
 
 io.on('connection', function(socket){
-userCount++;
-console.log('a user connected, the count is now:' + userCount)
+  connectionCount++;
   socket.on('gameLobby', function() {
-      connectionCount++;
-      console.log('connection count is now: ' + connectionCount)
+      userCount++;
       if (connectionCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
@@ -26,22 +24,21 @@ console.log('a user connected, the count is now:' + userCount)
         }
       }
   })
+
   socket.on('deckData', function(msg){
-    connectionCount++;
     numberOfPlayers = msg.numberOfPlayers;
     cardDeck = shuffle.shuffle(msg.cards)
   });
+
   socket.on('disconnect', function(){
     connectionCount --;
     userCount--;
-    if (connectionCount < 0) {
-      connectionCount = 0
-    }
-    console.log('A user disconnected, count is now:' + userCount)
-    console.log('connection count is now: ' + connectionCount)
+    connectionCount = connectionCount < 0 ? 0 : connectionCount
+    userCount = userCount < 0 ? 0 : userCount
   })
+  
 });
 
 http.listen(6969, function(){
-    console.log('listening on *:6969');
+    console.log('listening on *:6969  hehehe');
 });
