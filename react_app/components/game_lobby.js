@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 
-import { ngrok_game_server_site } from '../utils/NeededConstants';
+import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import CardDetails from './card_details';
 import { styles } from '../utils/StyleSheet';

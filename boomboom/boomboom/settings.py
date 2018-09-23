@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+env_path = Path('/Users/Spyro/Developer/boom_boom') / '.env'
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +30,8 @@ SECRET_KEY = '%-im127$)nioqb(i5a7@-na+drp94ia49e*iqv%&=%p7((2)+s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '9144f380.ngrok.io']
+NGROK_DJANGO_URI = os.getenv("NGROK_DJANGO_URI")
+ALLOWED_HOSTS = ['localhost', NGROK_DJANGO_URI]
 
 
 # Application definition
