@@ -4,6 +4,7 @@ import { Text, View, Image } from 'react-native';
 import BoomButton from '../utils/Button';
 import Scroller from '../utils/Scroller'
 import { styles } from '../utils/StyleSheet';
+import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 
 export default class HomeScreen extends React.Component {
     constructor(props){

@@ -4,7 +4,7 @@ import { List, ListItem } from 'react-native-elements';
 import SocketIOClient from 'socket.io-client';
 
 import BoomButton from '../utils/Button';
-import { ngrok_game_server_site } from '../utils/NeededConstants';
+import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import { imagePaths } from '../utils/ImagePaths';
 import { QueryGraphql } from '../utils/GraphqlQuery';
