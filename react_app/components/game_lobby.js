@@ -57,6 +57,7 @@ export default class GameLobbyScreen extends React.Component {
   }
 
   render() {
+  const daCardText = this.state.cardText
   const title = this.state.cardText.title
   const color = this.state.cardText.color
   const imageSource = this.state.cardText.picture
@@ -70,16 +71,15 @@ export default class GameLobbyScreen extends React.Component {
         description={description}
     />
   const preLobbyView =
-    <Text style={styles.lobbyText}>
-      Please wait until the leader starts the game
-    </Text>
-  const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
-    return (
     <View style={styles.lobbyView}>
-      {preLobbyView}
+      <Text style={styles.lobbyText}>
+        Please wait until the leader starts the game
+      </Text>
       <GameModal isModalVisible={tester} onPress={this.toGameLobby}/>
     </View>
-
+  const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
+    return (
+      <Text>{JSON.stringify(daCardText)}</Text>
     );
   }
 }

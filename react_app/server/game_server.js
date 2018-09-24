@@ -18,10 +18,12 @@ connectionCount++;
   socket.on('gameLobby', function(userName) {
       userCount++;
       userDict[userName] = socket.id
-      console.log(`User ${userName} is now connected, connection count is now: ${connectionCount}`)
-      if (connectionCount == numberOfPlayers) {
+      console.log(`User ${userName} is now connected, user count is now: ${userCount}
+        and number of players is ${numberOfPlayers}`)
+      if (userCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
+            console.log('inside the for loop')
             io.to(sock).emit('gameServer', cardDeck[count])
             count++;
         }
@@ -31,6 +33,7 @@ connectionCount++;
   socket.on('deckData', function(msg){
     numberOfPlayers = msg.numberOfPlayers;
     cardDeck = shuffle.shuffle(msg.cards)
+    console.log(`Deck data sent, number of players is ${numberOfPlayers}`)
   });
 
   socket.on('disconnect', function(){
@@ -43,5 +46,5 @@ connectionCount++;
 });
 
 http.listen(6969, function(){
-    console.log('listening on *:6969  hehehe');
+    console.log('listening on *:6969');
 });

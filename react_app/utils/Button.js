@@ -4,7 +4,7 @@ import {StyleSheet, TouchableOpacity} from "react-native";
 
 export default class BoomButton extends React.Component{
     render(){
-        const { onPress, title } = this.props
+        const { onPress, title, disabled } = this.props
         return (
             <Button
                 Component={TouchableOpacity}
@@ -12,9 +12,15 @@ export default class BoomButton extends React.Component{
                 buttonStyle={styles.button}
                 title={title}
                 onPress={onPress}
+                disabled={disabled}
+                disabledStyle={{opacity: 0}}
             />
         )
     }
+}
+
+BoomButton.defaultProps = {
+  disabled: false
 }
 
 const styles = StyleSheet.create({
