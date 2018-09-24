@@ -23,7 +23,6 @@ connectionCount++;
       if (userCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
-            console.log('inside the for loop')
             io.to(sock).emit('gameServer', cardDeck[count])
             count++;
         }
@@ -31,6 +30,7 @@ connectionCount++;
   })
 
   socket.on('deckData', function(msg){
+    userCount++
     numberOfPlayers = msg.numberOfPlayers;
     cardDeck = shuffle.shuffle(msg.cards)
     console.log(`Deck data sent, number of players is ${numberOfPlayers}`)
@@ -41,6 +41,7 @@ connectionCount++;
     userCount--;
     connectionCount = connectionCount < 0 ? 0 : connectionCount
     userCount = userCount < 0 ? 0 : userCount
+    console.log(`A user disconnected, userCount is now ${userCount}`)
   })
   
 });
