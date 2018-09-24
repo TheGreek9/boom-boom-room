@@ -45,6 +45,7 @@ export default class DeckDetailsScreen extends React.Component {
                       description
                       color
                       picture
+                      cardSwap
                     }
                   }`
     QueryGraphql(query).then(res => {

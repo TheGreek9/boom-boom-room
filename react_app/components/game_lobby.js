@@ -6,7 +6,7 @@ import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import CardDetails from './card_details';
 import { styles } from '../utils/StyleSheet';
-import GameModal from '../utils/GameModal';
+import { UserNameModal } from '../utils/GameModals';
 
 
 export default class GameLobbyScreen extends React.Component {
@@ -61,20 +61,22 @@ export default class GameLobbyScreen extends React.Component {
   const color = this.state.cardText.color
   const imageSource = this.state.cardText.picture
   const description = this.state.cardText.description
-  let tester = this.state.isModalVisible
+  const cardSwap = this.state.cardText.cardSwap
+  let modalVisible = this.state.isModalVisible
   const showCardDetails =
     <CardDetails
         title={title}
         color={color}
         imageSource={imageSource}
         description={description}
+        cardSwap={cardSwap}
     />
   const preLobbyView =
     <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
   const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
     return (
       <View style={styles.lobbyView}>
-        <GameModal isModalVisible={tester} onPress={this.toGameLobby}/>
+        <UserNameModal isModalVisible={modalVisible} onPress={this.toGameLobby}/>
         {test}
       </View>
     );

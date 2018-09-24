@@ -3,6 +3,8 @@ import { View } from 'react-native';
 
 import BoomCard from '../utils/Card';
 import { styles } from '../utils/StyleSheet';
+import BoomButton from '../utils/Button';
+import { UserListModal } from '../utils/GameModals';
 
 export default class CardDetails extends React.Component {
 
@@ -12,7 +14,9 @@ export default class CardDetails extends React.Component {
             cardFlipBool: true,
             title: this.props.title,
             color: this.props.color,
-            description: this.props.description
+            description: this.props.description,
+            cardSwap: this.props.cardSwap,
+            isModalVisible: false
         }
     }
 
@@ -22,13 +26,17 @@ export default class CardDetails extends React.Component {
         }));
     }
 
+    userCardSwap = () => {
+    this.setState(prevState => ({
+      isModalVisible: !this.state.isModalVisible
+    }))
+  }
+
     render() {
         let textShow = this.state.cardFlipBool;
         let color = this.state.color;
-        let display;
-        let title;
-        let description;
-        let imageSource;
+        let cardSwap = !this.state.cardSwap;
+        let modalVisible = this.state.isModalVisible
 
         if (textShow) {
           imageSource = this.props.imageSource
@@ -45,9 +53,15 @@ export default class CardDetails extends React.Component {
             <BoomCard
               onPress={this.changeCard}
               title={title}
-              description={description}
+              description="Test"
               imageSource={imageSource}
             />
+            <UserListModal isModalVisible={modalVisible} onPress={this.userCardSwap}/>
+            <BoomButton
+            disabled={cardSwap}
+            title="Card Swap"
+            onPress={this.userCardSwap}
+          />
           </View>
         );
     }
