@@ -16,7 +16,7 @@ io.on('connection', function(socket){
   connectionCount++;
   socket.on('gameLobby', function() {
       userCount++;
-      if (connectionCount == numberOfPlayers) {
+      if (userCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
             io.to(sock).emit('gameServer', cardDeck[count])
