@@ -44,7 +44,8 @@ export default class GameLobbyScreen extends React.Component {
 
   setData = (text) => {
     this.setState(prevState => ({
-      cardText: text,
+      userDict: text.userDict,
+      cardText: text.cardDeck,
       hasCardDetails: true
     }));
   }
@@ -57,28 +58,30 @@ export default class GameLobbyScreen extends React.Component {
   }
 
   render() {
-  const title = this.state.cardText.title
-  const color = this.state.cardText.color
-  const imageSource = this.state.cardText.picture
-  const description = this.state.cardText.description
-  const cardSwap = this.state.cardText.cardSwap
-  let modalVisible = this.state.isModalVisible
-  const showCardDetails =
-    <CardDetails
-        title={title}
-        color={color}
-        imageSource={imageSource}
-        description={description}
-        cardSwap={cardSwap}
-    />
-  const preLobbyView =
-    <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
-  const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
-    return (
-      <View style={styles.lobbyView}>
-        <UserNameModal isModalVisible={modalVisible} onPress={this.toGameLobby}/>
-        {test}
-      </View>
-    );
+    const userDict = this.state.userDict
+    const title = this.state.cardText.title
+    const color = this.state.cardText.color
+    const imageSource = this.state.cardText.picture
+    const description = this.state.cardText.description
+    const cardSwap = this.state.cardText.cardSwap
+    let modalVisible = this.state.isModalVisible
+    const showCardDetails =
+      <CardDetails
+          title={title}
+          color={color}
+          imageSource={imageSource}
+          description={description}
+          cardSwap={cardSwap}
+          userDict={userDict}
+      />
+    const preLobbyView =
+      <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
+    const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
+      return (
+        <View style={styles.lobbyView}>
+          <UserNameModal isModalVisible={modalVisible} onPress={this.toGameLobby}/>
+          {test}
+        </View>
+      );
   }
 }

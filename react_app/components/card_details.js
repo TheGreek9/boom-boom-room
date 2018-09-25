@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import BoomCard from '../utils/Card';
 import { styles } from '../utils/StyleSheet';
@@ -36,7 +36,8 @@ export default class CardDetails extends React.Component {
         let textShow = this.state.cardFlipBool;
         let color = this.state.color;
         let cardSwap = !this.state.cardSwap;
-        let modalVisible = this.state.isModalVisible
+        let modalVisible = this.state.isModalVisible;
+        let userDict = this.props.userDict;
 
         if (textShow) {
           imageSource = this.props.imageSource
@@ -56,7 +57,11 @@ export default class CardDetails extends React.Component {
               description="Test"
               imageSource={imageSource}
             />
-            <UserListModal isModalVisible={modalVisible} onPress={this.userCardSwap}/>
+            <UserListModal
+                isModalVisible={modalVisible}
+                onPress={this.userCardSwap}
+                userDict={userDict}
+            />
             <BoomButton
             disabled={cardSwap}
             title="Card Swap"
