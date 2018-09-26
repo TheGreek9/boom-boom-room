@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { ngrok_django_site } from '../utils/EnvironmentVars';
+import { ngrok_django_site } from './EnvironmentVars';
 
 export function QueryGraphql(da_query) {
     return axios({

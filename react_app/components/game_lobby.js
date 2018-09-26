@@ -73,6 +73,7 @@ export default class GameLobbyScreen extends React.Component {
           description={description}
           cardSwap={cardSwap}
           userDict={userDict}
+          socket={this.socket}
       />
     const preLobbyView =
       <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>

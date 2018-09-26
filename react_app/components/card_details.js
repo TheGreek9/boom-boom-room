@@ -61,6 +61,7 @@ export default class CardDetails extends React.Component {
                 isModalVisible={modalVisible}
                 onPress={this.userCardSwap}
                 userDict={userDict}
+                socket={this.props.socket}
             />
             <BoomButton
             disabled={cardSwap}

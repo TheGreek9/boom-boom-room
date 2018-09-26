@@ -27,11 +27,10 @@ export class UserNameModal extends React.Component{
 }
 
 export class UserListModal extends React.Component{
-  constructor(props) {
-    super(props);
-    const userList = [];
-    const userDict = {};
 
+  testPress  = (userNameInfo) => {
+    this.props.socket.emit('userInfo', this.props.userDict[userNameInfo.item])
+    this.props.onPress()
   }
 
   render(){
@@ -47,7 +46,7 @@ export class UserListModal extends React.Component{
             <FlatList
               data={userList}
               keyExtractor={(item, index) => String(index)}
-              renderItem={({item}) => <Button title={item} onPress={onPress}/>}
+              renderItem={({item}) => <Button title={item} onPress={({itm}) => this.testPress({item})}/>}
             />
           </View>
         </Modal>
