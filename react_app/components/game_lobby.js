@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 
 import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import CardDetails from './card_details';
 import { styles } from '../utils/StyleSheet';
-import { UserNameModal } from '../utils/GameModals';
+import {SwapRequestModal, UserNameModal} from '../utils/GameModals';
 
 
 export default class GameLobbyScreen extends React.Component {
@@ -26,11 +26,13 @@ export default class GameLobbyScreen extends React.Component {
     this.state = {
         cardText: 'nothing as of yet',
         hasCardDetails: false,
-        isModalVisible: true
+        isModalVisible: true,
+        modalVisible: false
     }
 
     this.socket = SocketIOClient(ngrok_game_server_site)
     this.socket.on('gameServer', this.setData)
+    this.socket.on('cardSwapRequest', this.showRequestModal)
   }
 
   componentDidMount() {
@@ -57,6 +59,27 @@ export default class GameLobbyScreen extends React.Component {
     this.socket.emit('gameLobby', userName)
   }
 
+  showRequestModal = (cardInfo) => {
+    this.setState(prevState => ({
+      modalVisible: true,
+      otherCardInfo: cardInfo
+    }));
+  }
+
+  swapCard = () => {
+    let otherCard = this.state.otherCardInfo
+    this.setState(prevState => ({
+        cardText: otherCard,
+        modalVisible: false
+    }))
+  }
+
+  cancelSwap = () => {
+    this.setState(prevState => ({
+        modalVisible: !this.state.modalVisible
+    }))
+  }
+
   render() {
     const userDict = this.state.userDict
     const title = this.state.cardText.title
@@ -64,7 +87,8 @@ export default class GameLobbyScreen extends React.Component {
     const imageSource = this.state.cardText.picture
     const description = this.state.cardText.description
     const cardSwap = this.state.cardText.cardSwap
-    let modalVisible = this.state.isModalVisible
+    let isModalVisible = this.state.isModalVisible
+    let modalVisible = this.state.modalVisible
     const showCardDetails =
       <CardDetails
           title={title}
@@ -80,7 +104,8 @@ export default class GameLobbyScreen extends React.Component {
     const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
       return (
         <View style={styles.lobbyView}>
-          <UserNameModal isModalVisible={modalVisible} onPress={this.toGameLobby}/>
+          <UserNameModal isModalVisible={isModalVisible} onPress={this.toGameLobby}/>
+          <SwapRequestModal modalVisible={modalVisible} onConfirm={this.swapCard} onCancel={this.cancelSwap}/>
           {test}
         </View>
       );

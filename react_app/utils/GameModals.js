@@ -55,7 +55,41 @@ export class UserListModal extends React.Component{
   }
 }
 
+export class SwapRequestModal extends React.Component{
+  render(){
+    const onConfirm = this.props.onConfirm
+    const onCancel = this.props.onCancel
+    const modalVisible = this.props.modalVisible
+    return (
+      <View>
+        <Modal isVisible={modalVisible}>
+          <Text style={{color: "white"}}>Spyro wants to trade cards with you</Text>
+          <View style={styles.swapContainer}>
+            <View style={styles.swapButtonContainer}>
+              <Button title="OK" onPress={onConfirm}/>
+            </View>
+            <View style={styles.swapButtonContainer}>
+              <Button title="Cancel" onPress={onCancel}/>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    )
+  }
+}
+
+
 const styles = StyleSheet.create({
+  swapContainer: {
+    marginTop: 350,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  swapButtonContainer: {
+    flex: 1,
+  },
   textInputStyle: {
     marginTop: 20,
     height: 40,
