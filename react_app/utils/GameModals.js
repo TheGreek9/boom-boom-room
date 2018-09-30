@@ -28,7 +28,7 @@ export class UserNameModal extends React.Component{
 
 export class UserListModal extends React.Component{
 
-  testPress  = (userNameInfo) => {
+  swapWithUser  = (userNameInfo) => {
     this.props.socket.emit('swapWithUser', this.props.userDict[userNameInfo.item])
     this.props.onPress()
   }
@@ -46,7 +46,7 @@ export class UserListModal extends React.Component{
             <FlatList
               data={userList}
               keyExtractor={(item, index) => String(index)}
-              renderItem={({item}) => <Button title={item} onPress={({itm}) => this.testPress({item})}/>}
+              renderItem={({item}) => <Button title={item} onPress={({itm}) => this.swapWithUser({item})}/>}
             />
           </View>
         </Modal>
@@ -59,11 +59,12 @@ export class SwapRequestModal extends React.Component{
   render(){
     const onConfirm = this.props.onConfirm
     const onCancel = this.props.onCancel
-    const modalVisible = this.props.modalVisible
+    const isModalVisible = this.props.isModalVisible
+    const fromUser = this.props.fromUser
     return (
       <View>
-        <Modal isVisible={modalVisible}>
-          <Text style={{color: "white"}}>Spyro wants to trade cards with you</Text>
+        <Modal isVisible={isModalVisible}>
+          <Text style={{color: "white"}}>{fromUser} wants to trade cards with you</Text>
           <View style={styles.swapContainer}>
             <View style={styles.swapButtonContainer}>
               <Button title="OK" onPress={onConfirm}/>

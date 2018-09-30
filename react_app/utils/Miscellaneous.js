@@ -8,4 +8,7 @@ for (i = 1; i <= numberOfPlayers; i++) {
 
 export const numberList = daNumberList;
 
+export function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
 

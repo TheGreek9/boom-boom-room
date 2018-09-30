@@ -1,7 +1,7 @@
 import React from 'react';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
 
-import { numberList } from '../utils/NeededConstants';
+import { numberList } from '../utils/Miscellaneous';
 
 export default class Scroller extends React.Component{
     render(){

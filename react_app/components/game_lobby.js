@@ -6,7 +6,8 @@ import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import CardDetails from './card_details';
 import { styles } from '../utils/StyleSheet';
-import {SwapRequestModal, UserNameModal} from '../utils/GameModals';
+import { SwapRequestModal, UserNameModal } from '../utils/GameModals';
+import { getKeyByValue } from '../utils/Miscellaneous';
 
 
 export default class GameLobbyScreen extends React.Component {
@@ -25,12 +26,10 @@ export default class GameLobbyScreen extends React.Component {
     const { navigation } = this.props;
     this.state = {
         cardText: 'nothing as of yet',
-        otherCard: 'nothing as of yet',
         hasCardDetails: false,
         hasSwapDetails: false,
-        isModalVisible: true,
-        modalVisible: false,
-        userDict: {}
+        userNameModalVisible: true,
+        swapReqModalVisible: false
     }
 
     this.socket = SocketIOClient(ngrok_game_server_site)
@@ -58,40 +57,41 @@ export default class GameLobbyScreen extends React.Component {
 
   toGameLobby = (userName) => {
     this.setState(prevState => ({
-      isModalVisible: !this.state.isModalVisible
+      userNameModalVisible: !this.state.userNameModalVisible
     }))
     this.socket.emit('gameLobby', userName)
   }
 
   showRequestModal = (cardInfo) => {
+    let senderUserName = getKeyByValue(this.state.userDict, cardInfo[0])
     this.setState(prevState => ({
-      modalVisible: true,
-      otherCardUser: cardInfo[0],
-      otherCardInfo: cardInfo[1]
+      swapReqModalVisible: true,
+      requestCardUser: cardInfo[0],
+      requestCardInfo: cardInfo[1],
+      requestCardUserName: senderUserName
     }))
   }
 
   swapCard = () => {
-    swapCardInfo = [this.state.otherCardUser, this.state.cardText]
+    swapCardInfo = [this.state.requestCardUser, this.state.cardText]
     this.socket.emit('swapAccept', swapCardInfo)
-    let otherCard = this.state.otherCardInfo
     this.setState(prevState => ({
-        cardText: otherCard,
-        modalVisible: false,
+        cardText: this.state.requestCardInfo,
+        swapReqModalVisible: false,
         hasCardDetails: true
     }))
   }
 
   cancelSwap = () => {
     this.setState(prevState => ({
-        modalVisible: !this.state.modalVisible
+        swapReqModalVisible: !this.state.swapReqModalVisible
     }))
   }
 
   acceptSwap = (cardInfo) => {
     this.setState(prevState => ({
         cardText: cardInfo,
-        modalVisible: false,
+        swapReqModalVisible: false,
         hasCardDetails: true
     }))
   }
@@ -103,8 +103,8 @@ export default class GameLobbyScreen extends React.Component {
     const imageSource = this.state.cardText.picture
     const description = this.state.cardText.description
     const cardSwap = this.state.cardText.cardSwap
-    let isModalVisible = this.state.isModalVisible
-    let modalVisible = this.state.modalVisible
+    let userNameModalVisible = this.state.userNameModalVisible
+    let swapReqModalVisible = this.state.swapReqModalVisible
     const showCardDetails =
       <CardDetails
           title={title}
@@ -115,15 +115,26 @@ export default class GameLobbyScreen extends React.Component {
           userDict={userDict}
           socket={this.socket}
       />
+
     const preLobbyView =
       <Text style={styles.lobbyText}>Please wait until the leader starts the game</Text>
-    const test = this.state.hasCardDetails ? showCardDetails : preLobbyView
-      return (
-        <View style={styles.lobbyView}>
-          <UserNameModal isModalVisible={isModalVisible} onPress={this.toGameLobby}/>
-          <SwapRequestModal modalVisible={modalVisible} onConfirm={this.swapCard} onCancel={this.cancelSwap}/>
-          {test}
-        </View>
-      );
+
+    const lobbyViews = this.state.hasCardDetails ? showCardDetails : preLobbyView
+
+    return (
+      <View style={styles.lobbyView}>
+        <UserNameModal
+          isModalVisible={userNameModalVisible}
+          onPress={this.toGameLobby}
+        />
+        <SwapRequestModal
+          isModalVisible={swapReqModalVisible}
+          fromUser={this.state.requestCardUserName}
+          onConfirm={this.swapCard}
+          onCancel={this.cancelSwap}
+        />
+        {lobbyViews}
+      </View>
+    );
   }
 }

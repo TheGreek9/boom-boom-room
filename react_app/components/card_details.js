@@ -12,10 +12,6 @@ export default class CardDetails extends React.Component {
         super(props);
         this.state = {
             cardFlipBool: true,
-            title: this.props.title,
-            color: this.props.color,
-            description: this.props.description,
-            cardSwap: this.props.cardSwap,
             isModalVisible: false
         }
     }
@@ -34,8 +30,8 @@ export default class CardDetails extends React.Component {
 
     render() {
         let textShow = this.state.cardFlipBool;
-        let cardSwap = !this.state.cardSwap;
         let modalVisible = this.state.isModalVisible;
+        let cardSwap = !this.props.cardSwap;
         let userDict = this.props.userDict;
 
         if (textShow) {
