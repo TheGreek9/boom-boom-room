@@ -25,9 +25,12 @@ export default class GameLobbyScreen extends React.Component {
     const { navigation } = this.props;
     this.state = {
         cardText: 'nothing as of yet',
+        otherCard: 'nothing as of yet',
         hasCardDetails: false,
+        hasSwapDetails: false,
         isModalVisible: true,
-        modalVisible: false
+        modalVisible: false,
+        userDict: {}
     }
 
     this.socket = SocketIOClient(ngrok_game_server_site)
@@ -62,7 +65,8 @@ export default class GameLobbyScreen extends React.Component {
   showRequestModal = (cardInfo) => {
     this.setState(prevState => ({
       modalVisible: true,
-      otherCardInfo: cardInfo
+      otheCardUser: cardInfo[0],
+      otherCardInfo: cardInfo[1]
     }));
   }
 
@@ -70,7 +74,8 @@ export default class GameLobbyScreen extends React.Component {
     let otherCard = this.state.otherCardInfo
     this.setState(prevState => ({
         cardText: otherCard,
-        modalVisible: false
+        modalVisible: false,
+        hasCardDetails: true
     }))
   }
 

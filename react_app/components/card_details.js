@@ -34,19 +34,19 @@ export default class CardDetails extends React.Component {
 
     render() {
         let textShow = this.state.cardFlipBool;
-        let color = this.state.color;
         let cardSwap = !this.state.cardSwap;
         let modalVisible = this.state.isModalVisible;
         let userDict = this.props.userDict;
 
         if (textShow) {
+
           imageSource = this.props.imageSource
-          title=this.state.title
-          description = this.state.description
+          title=this.props.title
+          description = this.props.description
         } else {
-          imageSource = color
-          title=`${color} Team`
-          description = `You are on the ${color} Team`
+          imageSource = this.props.color
+          title=`${this.props.color} Team`
+          description = `You are on the ${this.props.color} Team`
         }
 
         return (
@@ -64,7 +64,7 @@ export default class CardDetails extends React.Component {
                 socket={this.props.socket}
             />
             <BoomButton
-            disabled={cardSwap}
+              disabled={cardSwap}
             title="Card Swap"
             onPress={this.userCardSwap}
           />

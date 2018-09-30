@@ -29,7 +29,7 @@ export class UserNameModal extends React.Component{
 export class UserListModal extends React.Component{
 
   testPress  = (userNameInfo) => {
-    this.props.socket.emit('userInfo', this.props.userDict[userNameInfo.item])
+    this.props.socket.emit('swapWithUser', this.props.userDict[userNameInfo.item])
     this.props.onPress()
   }
 

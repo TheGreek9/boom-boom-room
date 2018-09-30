@@ -19,13 +19,11 @@ io.on('connection', function(socket){
 connectionCount++;
   socket.on('gameLobby', function(userName) {
       userCount++;
-       userDict[userName] = socket.id
-      console.log(`Socket ${socket.id} is now connected, user count is now: ${userCount}
-        and number of players is ${numberOfPlayers}`)
+      userDict[userName] = socket.id
       if (userCount == numberOfPlayers) {
         var count = 0;
         for (var sock in io.sockets.sockets) {
-            userCardDict[socket.id] = cardDeck[count]
+            userCardDict[sock] = cardDeck[count]
             infoDict['userDict'] = userDict
             infoDict['cardDeck'] = cardDeck[count]
             io.to(sock).emit('gameServer', infoDict)
@@ -38,11 +36,11 @@ connectionCount++;
     userCount++
     numberOfPlayers = msg.numberOfPlayers;
     cardDeck = shuffle.shuffle(msg.cards)
-    console.log(`Deck data sent, number of players is ${numberOfPlayers}`)
   });
 
-  socket.on('userInfo', function(userSocket){
-    io.to(userSocket).emit('cardSwapRequest', userCardDict[userSocket])
+  socket.on('swapWithUser', function(userSocket){
+    cardInfo = [socket.id, userCardDict[socket.id]]
+    io.to(userSocket).emit('cardSwapRequest', cardInfo)
   })
 
   socket.on('disconnect', function(){
@@ -50,6 +48,9 @@ connectionCount++;
     userCount--;
     connectionCount = connectionCount < 0 ? 0 : connectionCount
     userCount = userCount < 0 ? 0 : userCount
+    if (userCount == 0){
+      userDict = {}
+    }
     console.log(`A user disconnected, userCount is now ${userCount}`)
   })
   
