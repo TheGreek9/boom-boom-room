@@ -36,6 +36,7 @@ export default class GameLobbyScreen extends React.Component {
     this.socket = SocketIOClient(ngrok_game_server_site)
     this.socket.on('gameServer', this.setData)
     this.socket.on('cardSwapRequest', this.showRequestModal)
+    this.socket.on('swapAccept', this.acceptSwap)
   }
 
   componentDidMount() {
@@ -65,12 +66,14 @@ export default class GameLobbyScreen extends React.Component {
   showRequestModal = (cardInfo) => {
     this.setState(prevState => ({
       modalVisible: true,
-      otheCardUser: cardInfo[0],
+      otherCardUser: cardInfo[0],
       otherCardInfo: cardInfo[1]
-    }));
+    }))
   }
 
   swapCard = () => {
+    swapCardInfo = [this.state.otherCardUser, this.state.cardText]
+    this.socket.emit('swapAccept', swapCardInfo)
     let otherCard = this.state.otherCardInfo
     this.setState(prevState => ({
         cardText: otherCard,
@@ -82,6 +85,14 @@ export default class GameLobbyScreen extends React.Component {
   cancelSwap = () => {
     this.setState(prevState => ({
         modalVisible: !this.state.modalVisible
+    }))
+  }
+
+  acceptSwap = (cardInfo) => {
+    this.setState(prevState => ({
+        cardText: cardInfo,
+        modalVisible: false,
+        hasCardDetails: true
     }))
   }
 

@@ -43,6 +43,10 @@ connectionCount++;
     io.to(userSocket).emit('cardSwapRequest', cardInfo)
   })
 
+  socket.on('swapAccept', function(userCardInfo){
+    io.to(userCardInfo[0]).emit('swapAccept', userCardInfo[1])
+  })
+
   socket.on('disconnect', function(){
     connectionCount --;
     userCount--;
