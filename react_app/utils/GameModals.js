@@ -64,13 +64,15 @@ export class SwapRequestModal extends React.Component{
     return (
       <View>
         <Modal isVisible={isModalVisible}>
-          <Text style={{color: "white"}}>{fromUser} wants to trade cards with you</Text>
-          <View style={styles.swapContainer}>
-            <View style={styles.swapButtonContainer}>
-              <Button title="OK" onPress={onConfirm}/>
-            </View>
-            <View style={styles.swapButtonContainer}>
-              <Button title="Cancel" onPress={onCancel}/>
+          <View style={{marginTop: 450}}>
+            <Text style={{color: "white"}}>{fromUser} wants to trade cards with you</Text>
+            <View style={styles.swapContainer}>
+              <View style={styles.swapButtonContainer}>
+                <Button title="OK" onPress={onConfirm}/>
+              </View>
+              <View style={styles.swapButtonContainer}>
+                <Button title="Cancel" onPress={onCancel}/>
+              </View>
             </View>
           </View>
         </Modal>
@@ -82,8 +84,7 @@ export class SwapRequestModal extends React.Component{
 
 const styles = StyleSheet.create({
   swapContainer: {
-    marginTop: 350,
-    flex: 1,
+    marginTop: 50,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

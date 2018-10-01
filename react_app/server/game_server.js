@@ -44,6 +44,8 @@ connectionCount++;
   })
 
   socket.on('swapAccept', function(userCardInfo){
+    userCardDict[socket.id] = userCardDict[userCardInfo[0]]
+    userCardDict[userCardInfo[0]] = userCardInfo[1]
     io.to(userCardInfo[0]).emit('swapAccept', userCardInfo[1])
   })
 
@@ -55,7 +57,6 @@ connectionCount++;
     if (userCount == 0){
       userDict = {}
     }
-    console.log(`A user disconnected, userCount is now ${userCount}`)
   })
   
 });
