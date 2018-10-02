@@ -18,6 +18,7 @@ var infoDict = {};
 io.on('connection', function(socket){
 connectionCount++;
   socket.on('gameLobby', function(userName) {
+    console.log(`user ${userName} connected`)
       userCount++;
       userDict[userName] = socket.id
       if (userCount == numberOfPlayers) {

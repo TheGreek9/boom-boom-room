@@ -45,9 +45,9 @@ var imagePathObject = {
     'Red_Team_cO4aIOJ.png': require('../../boomboom/images/Red_Team_cO4aIOJ.png'),
     'Tinkerer.png': require('../../boomboom/images/Tinkerer.png'),
     'Zombie.png': require('../../boomboom/images/Zombie.png'),
-    'RED': require('../../boomboom/images/Red_Background.png'),
-    'BLUE': require('../../boomboom/images/Blue_Background.png'),
-    'GREY': require('../../boomboom/images/Grey_Background.png')
+    'RED': require('../../boomboom/images/Red_Team.png'),
+    'BLUE': require('../../boomboom/images/Blue_Team.png'),
+    'GREY': require('../../boomboom/images/Grey_Team.png')
 }
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 
-import BoomButton from '../utils/Button';
+import { MainButton } from '../utils/Button';
 import Scroller from '../utils/Scroller'
 import { styles } from '../utils/StyleSheet';
 import { ngrok_game_server_site } from '../utils/EnvironmentVars';
@@ -37,7 +37,7 @@ export default class HomeScreen extends React.Component {
                 />
                 <Text style={{margin: 20}}> You are playing with {num_of_players} players</Text>
             </View>
-            <BoomButton
+            <MainButton
               title="Choose Deck"
               onPress={() => {
                   this.props.navigation.navigate('CardSetList', {
@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
                   })
               }}
             />
-            <BoomButton
+            <MainButton
               title="Join Game"
               onPress={() => {
                   this.props.navigation.navigate('GameLobby')

@@ -3,7 +3,7 @@ import { Text, View, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import SocketIOClient from 'socket.io-client';
 
-import BoomButton from '../utils/Button';
+import { MainButton } from '../utils/Button';
 import { ngrok_game_server_site } from '../utils/EnvironmentVars';
 import { MaterialHeaderButtons, hItem } from '../utils/HeaderButtons';
 import { imagePaths } from '../utils/ImagePaths';
@@ -90,7 +90,7 @@ export default class DeckDetailsScreen extends React.Component {
           }
         </List>
       </ScrollView>
-        <BoomButton
+        <MainButton
               title="Choose This Deck/Start Game"
               style={{margin: 20}}
               onPress={this.sendCardData}

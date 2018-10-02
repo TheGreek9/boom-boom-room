@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, ScrollView, Button, FlatList } from "react-native";
-import { List, ListItem } from 'react-native-elements';
+import { List, ListItem, Card } from 'react-native-elements';
 import Modal from "react-native-modal";
+
+import { MainButton } from '../utils/Button';
 
 export class UserNameModal extends React.Component{
   render(){
@@ -63,7 +65,7 @@ export class SwapRequestModal extends React.Component{
     const fromUser = this.props.fromUser
     return (
       <View>
-        <Modal isVisible={isModalVisible}>
+        <Modal isVisible={isModalVisible} onBackdropPress={onCancel}>
           <View style={{marginTop: 450}}>
             <Text style={{color: "white"}}>{fromUser} wants to trade cards with you</Text>
             <View style={styles.swapContainer}>
@@ -74,6 +76,33 @@ export class SwapRequestModal extends React.Component{
                 <Button title="Cancel" onPress={onCancel}/>
               </View>
             </View>
+          </View>
+        </Modal>
+      </View>
+    )
+  }
+}
+
+export class CardDescriptionModal extends React.Component{
+  render(){
+    const onPress = this.props.onPress
+    const isModalVisible = this.props.isModalVisible
+    return (
+      <View>
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={onPress}
+          backdropOpacity={0.2}
+        >
+          <View style={{marginTop: 50}}>
+            <Card title={this.props.cardTitle}>
+              <Text><Text style={{fontWeight: "bold"}}>Goal: </Text>{this.props.description}</Text>
+              <MainButton
+                backgroundColor='#03A9F4'
+                title="Go Back"
+                onPress={onPress}
+              />
+            </Card>
           </View>
         </Modal>
       </View>

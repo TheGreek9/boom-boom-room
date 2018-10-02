@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 import BoomCard from '../utils/Card';
 import { styles } from '../utils/StyleSheet';
-import BoomButton from '../utils/Button';
+import { MainButton } from '../utils/Button';
 import { UserListModal } from '../utils/GameModals';
 
 export default class CardDetails extends React.Component {
@@ -50,7 +50,7 @@ export default class CardDetails extends React.Component {
             <BoomCard
               onPress={this.changeCard}
               title={title}
-              description="Test"
+              description={description}
               imageSource={imageSource}
             />
             <UserListModal
@@ -59,7 +59,7 @@ export default class CardDetails extends React.Component {
                 userDict={userDict}
                 socket={this.props.socket}
             />
-            <BoomButton
+            <MainButton
               disabled={cardSwap}
             title="Card Swap"
             onPress={this.userCardSwap}

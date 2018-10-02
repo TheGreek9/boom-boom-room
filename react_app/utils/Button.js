@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-native-elements';
 import {StyleSheet, TouchableOpacity} from "react-native";
 
-export default class BoomButton extends React.Component{
+export class MainButton extends React.Component{
     render(){
         const { onPress, title, disabled } = this.props
         return (
@@ -19,14 +19,40 @@ export default class BoomButton extends React.Component{
     }
 }
 
-BoomButton.defaultProps = {
+export class StyleButton extends React.Component{
+    render(){
+        const { onPress, title, disabled, buttonStyle, buttonColor } = this.props
+        var bStyle = this.props.style ? this.props.style : styles.button
+        var bTitleStyle = this.props.titleStyle ? this.props.titleStyle : null
+        return (
+            <Button
+                Component={TouchableOpacity}
+                raised
+                buttonStyle={[styles.descButton, bStyle]}
+                title={title}
+                titleStyle={{fontSize: 2}}
+                onPress={onPress}
+            />
+        )
+    }
+}
+
+MainButton.defaultProps = {
+  disabled: false
+}
+
+StyleButton.defaultProps = {
   disabled: false
 }
 
 const styles = StyleSheet.create({
   button: {
-      backgroundColor: '#03A9F4',
+      backgroundColor: '#006699',
       margin: 10,
       borderRadius: 10,
+  },
+  descButton: {
+    margin: 10,
+    borderRadius: 10,
   }
 });

@@ -1,10 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
-import BoomButton from '../utils/Button'
-import { imagePaths } from '../utils/ImagePaths'
+
+import { MainButton, StyleButton } from '../utils/Button';
+import { imagePaths } from '../utils/ImagePaths';
+import { CardDescriptionModal } from '../utils/GameModals';
 
 export default class BoomCard extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        isModalVisible: false
+    }
+  }
+
+  shutModal = () => {
+    this.setState(prevState => ({
+        isModalVisible: !this.state.isModalVisible
+    }))
+  }
+
   render(){
     return (
       <Card title={this.props.title}>
@@ -13,12 +29,21 @@ export default class BoomCard extends React.Component{
             style={styles.image}
         />
         <Divider style={styles.divider}/>
-        <Text>GOAL: {this.props.description}</Text>
-        <BoomButton
-          backgroundColor='#03A9F4'
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 20}}
+        <MainButton
           title="Color Share"
           onPress={this.props.onPress}
+        />
+        <StyleButton
+          title="Description"
+          onPress={this.shutModal}
+          style={{height: 50, width: 150, marginLeft: 60, backgroundColor: '#5b6870'}}
+          titleStyle={{fontSize: 2}}
+        />
+        <CardDescriptionModal
+          onPress={this.shutModal}
+          isModalVisible={this.state.isModalVisible}
+          cardTitle={this.props.title}
+          description={this.props.description}
         />
       </Card>
     )
@@ -27,10 +52,10 @@ export default class BoomCard extends React.Component{
 
 const styles = StyleSheet.create({
   image: {
-    width: 250,
-    height: 350,
-    marginLeft: 20,
-    marginRight: 20
+    width: 200,
+    height: 300,
+    marginLeft: 50,
+    marginRight: 50
   },
   divider: {
     marginTop: 10,

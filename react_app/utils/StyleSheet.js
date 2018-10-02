@@ -22,8 +22,9 @@ export const styles = StyleSheet.create({
   },
   lobbyView: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
   },
   lobbyText: {
     fontSize: 21,
@@ -32,9 +33,9 @@ export const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+//    flexDirection: 'column',
+//    justifyContent: 'center',
+//    alignItems: 'center',
   },
   boomCardImage: {
     width: 250,
