@@ -31,6 +31,8 @@ export class StyleButton extends React.Component{
                 buttonStyle={[styles.descButton, bStyle]}
                 title={title}
                 titleStyle={{fontSize: 2}}
+                disabled={disabled}
+                disabledStyle={{opacity: 0}}
                 onPress={onPress}
             />
         )

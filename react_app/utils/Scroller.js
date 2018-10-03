@@ -9,7 +9,7 @@ export default class Scroller extends React.Component{
         return (
             <ScrollPicker
                 dataSource={numberList}
-                selected_index={0}
+                selectedIndex={9}
                 renderItem={(data, index, isSelected) => {
                     //
                 }}
