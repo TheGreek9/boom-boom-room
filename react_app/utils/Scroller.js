@@ -9,15 +9,15 @@ export default class Scroller extends React.Component{
         return (
             <ScrollPicker
                 dataSource={numberList}
-                selected_index={1}
+                selected_index={0}
                 renderItem={(data, index, isSelected) => {
                     //
                 }}
                 onValueChange={onValueChange}
-                wrapperHeight={160}
+                wrapperHeight={200}
                 wrapperWidth={140}
                 wrapperBackground={'#FFFFFF'}
-                itemHeight={60}
+                itemHeight={50}
                 highlightColor={'#d8d8d8'}
                 highlightBorderWidth={2}
                 activeItemColor={'#222121'}

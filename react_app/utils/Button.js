@@ -37,6 +37,21 @@ export class StyleButton extends React.Component{
     }
 }
 
+export class HomeButton extends React.Component{
+    render(){
+        const { onPress, title } = this.props
+        return (
+            <Button
+                Component={TouchableOpacity}
+                raised
+                buttonStyle={styles.homeButton}
+                title={title}
+                onPress={onPress}
+            />
+        )
+    }
+}
+
 MainButton.defaultProps = {
   disabled: false
 }
@@ -54,5 +69,13 @@ const styles = StyleSheet.create({
   descButton: {
     margin: 10,
     borderRadius: 10,
+  },
+  homeButton: {
+    height: 100,
+    width: 250,
+    marginTop: 80,
+    backgroundColor: '#006699',
+    margin: 10,
+    borderRadius: 10
   }
 });
