@@ -32,12 +32,6 @@ export default class CardDetails extends React.Component {
       })
     }
 
-    changeCard = () => {
-        this.setState(prevState => ({
-          cardFlipBool: !prevState.cardFlipBool
-        }));
-    }
-
     flipCard = () => {
       if (this.value >= 90) {
         Animated.spring(this.animatedValue,{
@@ -107,7 +101,7 @@ export default class CardDetails extends React.Component {
                   onPress={this.flipCard}
                   title={`${this.props.color} Team`}
                   shareTitle={"Card Share"}
-                  description={`You are on the ${this.props.color} Team`}
+                  description={this.props.description}
                   imageSource={this.props.color}
                 />
               </Animated.View>
