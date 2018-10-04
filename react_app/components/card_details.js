@@ -39,10 +39,12 @@ export default class CardDetails extends React.Component {
           imageSource = this.props.imageSource
           title=this.props.title
           description = this.props.description
+          buttonTitle = 'Color Share'
         } else {
           imageSource = this.props.color
           title=`${this.props.color} Team`
           description = `You are on the ${this.props.color} Team`
+          buttonTitle = 'Card Share'
         }
 
         return (
@@ -52,6 +54,7 @@ export default class CardDetails extends React.Component {
               title={title}
               description={description}
               imageSource={imageSource}
+              buttonTitle={buttonTitle}
             />
             <UserListModal
                 isModalVisible={modalVisible}
