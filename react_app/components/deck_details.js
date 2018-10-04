@@ -26,7 +26,8 @@ export default class DeckDetailsScreen extends React.Component {
     const { navigation } = this.props;
     this.state = {
       deckId: navigation.getParam('chosenDeckId', 'details not working').item.id,
-      cardSet: []
+      nonBuriedCards: [],
+      buriedCards: []
     }
     this.socket = SocketIOClient(ngrok_game_server_site);
   }
@@ -47,13 +48,22 @@ export default class DeckDetailsScreen extends React.Component {
                       picture
                       cardSwap
                     }
+                    buriedCards {
+                      id
+                      title
+                      description
+                      color
+                      picture
+                      cardSwap
+                    }
                   }`
     QueryGraphql(query).then(res => {
        const da_card = res.data.data;
         this.setState({
             cardDeck: da_card.cardSet,
             deckName: da_card.cardSet.name,
-            cardSet: da_card.cardSet.cards
+            nonBuriedCards: da_card.cardSet.cards,
+            buriedCards: da_card.cardSet.buriedCards
         });
     })
   }
@@ -70,7 +80,9 @@ export default class DeckDetailsScreen extends React.Component {
   }
 
   render() {
-    const cardSet = this.state.cardSet
+    const nonBuriedCards = this.state.nonBuriedCards
+    const buriedCards = this.state.buriedCards
+    const cardSet = nonBuriedCards.concat(buriedCards)
     const deckName = this.state.deckName
     return (
       <View style={styles.listContainer}>

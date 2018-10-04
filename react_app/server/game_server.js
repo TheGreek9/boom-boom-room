@@ -26,17 +26,24 @@ connectionCount++;
         for (var sock in io.sockets.sockets) {
             userCardDict[sock] = cardDeck[count]
             infoDict['userDict'] = userDict
-            infoDict['cardDeck'] = cardDeck[count]
+            if (nonBuriedCards.length > 0){
+              infoDict['cardDeck'] = nonBuriedCards.pop()
+            } else {
+              infoDict['cardDeck'] = buriedCards.pop()
+            }
+
             io.to(sock).emit('gameServer', infoDict)
             count++;
         }
+        console.log(`is there one left over? ${JSON.stringify(buriedCards)}`)
       }
   })
 
-  socket.on('deckData', function(msg){
+  socket.on('deckData', function(da_data){
     userCount++
-    numberOfPlayers = msg.numberOfPlayers;
-    cardDeck = shuffle.shuffle(msg.cards)
+    numberOfPlayers = da_data.numberOfPlayers;
+    nonBuriedCards = shuffle.shuffle(da_data.cards)
+    buriedCards = shuffle.shuffle(da_data.buriedCards)
   });
 
   socket.on('swapWithUser', function(userSocket){
