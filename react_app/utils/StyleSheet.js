@@ -56,14 +56,5 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     backgroundColor: 'grey'
-  },
-  flipCard: {
-//    alignItems: 'center',
-//    justifyContent: 'center',
-    backfaceVisibility: 'hidden',
-  },
-  flipCardBack: {
-    position: "absolute",
-    top: 0,
   }
 })

@@ -30,7 +30,7 @@ export default class BoomCard extends React.Component{
         />
         <Divider style={styles.divider}/>
         <MainButton
-          title={this.props.shareTitle}
+          title="Color Share"
           onPress={this.props.onPress}
         />
         <StyleButton
