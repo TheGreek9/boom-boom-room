@@ -24,7 +24,7 @@ export default class CardDetails extends React.Component {
 
     userCardSwap = () => {
     this.setState(prevState => ({
-      isModalVisible: !this.state.isModalVisible
+      isModalVisible: !prevState.isModalVisible
     }))
   }
 

@@ -17,7 +17,7 @@ export default class BoomCard extends React.Component{
 
   shutModal = () => {
     this.setState(prevState => ({
-        isModalVisible: !this.state.isModalVisible
+        isModalVisible: !prevState.isModalVisible
     }))
   }
 

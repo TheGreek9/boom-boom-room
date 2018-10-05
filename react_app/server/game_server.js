@@ -35,7 +35,6 @@ connectionCount++;
             io.to(sock).emit('gameServer', infoDict)
             count++;
         }
-        console.log(`is there one left over? ${JSON.stringify(buriedCards)}`)
       }
   })
 
