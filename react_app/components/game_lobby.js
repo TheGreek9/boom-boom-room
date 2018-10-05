@@ -48,35 +48,35 @@ export default class GameLobbyScreen extends React.Component {
   }
 
   setData = (text) => {
-    this.setState(prevState => ({
+    this.setState({
       userDict: text.userDict,
       cardText: text.cardDeck,
       hasCardDetails: true
-    }));
+    })
   }
 
   toGameLobby = (userName) => {
-    this.setState(prevState => ({
-      userNameModalVisible: !this.state.userNameModalVisible
-    }))
     this.socket.emit('gameLobby', userName)
+    this.setState(prevState => ({
+      userNameModalVisible: !prevState.userNameModalVisible
+    }))
   }
 
   showRequestModal = (cardInfo) => {
     let senderUserName = getKeyByValue(this.state.userDict, cardInfo[0])
-    this.setState(prevState => ({
+    this.setState({
       swapReqModalVisible: true,
       requestCardUser: cardInfo[0],
       requestCardInfo: cardInfo[1],
       requestCardUserName: senderUserName
-    }))
+    })
   }
 
   swapCard = () => {
     swapCardInfo = [this.state.requestCardUser, this.state.cardText]
     this.socket.emit('swapAccept', swapCardInfo)
     this.setState(prevState => ({
-        cardText: this.state.requestCardInfo,
+        cardText: prevState.requestCardInfo,
         swapReqModalVisible: false,
         hasCardDetails: true
     }))
@@ -84,16 +84,16 @@ export default class GameLobbyScreen extends React.Component {
 
   cancelSwap = () => {
     this.setState(prevState => ({
-        swapReqModalVisible: !this.state.swapReqModalVisible
+        swapReqModalVisible: !prevState.swapReqModalVisible
     }))
   }
 
   acceptSwap = (cardInfo) => {
-    this.setState(prevState => ({
+    this.setState({
         cardText: cardInfo,
         swapReqModalVisible: false,
         hasCardDetails: true
-    }))
+    })
   }
 
   render() {

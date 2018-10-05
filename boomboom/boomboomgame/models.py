@@ -20,7 +20,8 @@ class CardSet(models.Model):
     user_id = models.IntegerField()
     name = models.CharField(max_length=100, blank=True, null=True)
     number_of_players = models.IntegerField()
-    cards = models.ManyToManyField(Card)
+    cards = models.ManyToManyField(Card, related_name='non_buried_cards')
+    buried_cards = models.ManyToManyField(Card, related_name='buried_cards')
 
     def __str__(self):
         return self.name if self.name else "Card set from user {}".format(self.user_id)

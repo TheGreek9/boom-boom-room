@@ -40,9 +40,11 @@ export const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-//    flexDirection: 'column',
-//    justifyContent: 'center',
-//    alignItems: 'center',
+    height: 50,
+    width: 400,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   boomCardImage: {
     width: 250,
