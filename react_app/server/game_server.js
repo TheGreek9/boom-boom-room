@@ -22,7 +22,7 @@ io.on('connection', function(socket){
 
   socket.on('userConnectionCheck', function(userName){
     userDict[socket.id] = userName
-    console.log(`user ${userName} (${socket.id}) is connected, and numberOfPlayers is ${numberOfPlayers}`)
+    console.log('\n' + `user ${userName} (${socket.id}) is connected, and numberOfPlayers is ${numberOfPlayers}`)
     checkGameStart(userDict)
   })
 
@@ -39,6 +39,7 @@ io.on('connection', function(socket){
     userSockets = Object.keys(currentUserDict)
 
     if (numberOfPlayers == userSockets.length && didntSendCards){
+      console.log('**Sending users Cards')
       didntSendCards = false;
 
       dealOutCards(userSockets, currentUserDict)
@@ -61,6 +62,7 @@ io.on('connection', function(socket){
   }
 
   socket.on('deckData', function(da_data){
+    console.log('\n' + `da deck data is ${JSON.stringify(da_data)}` + '\n')
     numberOfPlayers = da_data.numberOfPlayers;
     nonBuriedCards = server_funcs.shuffle(da_data.cards)
     buriedCards = server_funcs.shuffle(da_data.buriedCards)
@@ -82,11 +84,14 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
     userSocket = socket.id
-    console.log(`@@@@@@@ about to delete socket id ${userSocket}`)
+    console.log('\n' + `user ${userDict[userSocket]} is disconnecting`)
+    console.log(`-- about to delete socket id ${userSocket}`)
     delete userDict[userSocket]
-    console.log(`user ${userDict[userSocket]} disconnected, user dict is ${JSON.stringify(userDict)}`)
+    delete userCardDict[userSocket]
+    console.log(`-- user dict is ${JSON.stringify(userDict)} and card dict is ${JSON.stringify(userCardDict)}`)
     if (Object.keys(userDict).length == 0){
       numberOfPlayers = 0
+      didntSendCards = true;
     }
   })
   
