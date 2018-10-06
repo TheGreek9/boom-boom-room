@@ -1,22 +1,23 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var shuffle = require('./server_const');
+var server_funcs = require('./server_funcs')
 
 app.get('/', function(req, res){
    res.sendFile(__dirname + '/index_server.html');
 });
 
-var connectionCount = 0;
 var numberOfPlayers;
 var cardDeck = {};
 var userCount = 0;
 var userDict = {};
 var userCardDict = {};
 var infoDict = {};
+var nonBuriedCards = {}
+var buriedCards = {}
 
 io.on('connection', function(socket){
-connectionCount++;
+
   socket.on('gameLobby', function(userName) {
     console.log(`user ${userName} connected`)
       userCount++;
@@ -41,8 +42,11 @@ connectionCount++;
   socket.on('deckData', function(da_data){
     userCount++
     numberOfPlayers = da_data.numberOfPlayers;
-    nonBuriedCards = shuffle.shuffle(da_data.cards)
-    buriedCards = shuffle.shuffle(da_data.buriedCards)
+    nonBuriedCards = server_funcs.shuffle(da_data.cards)
+    buriedCards = server_funcs.shuffle(da_data.buriedCards)
+    if (Object.keys(nonBuriedCards).length > 0) {
+      socket.emit('confirmDataReceived', true)
+    }
   });
 
   socket.on('swapWithUser', function(userSocket){
@@ -57,9 +61,7 @@ connectionCount++;
   })
 
   socket.on('disconnect', function(){
-    connectionCount --;
     userCount--;
-    connectionCount = connectionCount < 0 ? 0 : connectionCount
     userCount = userCount < 0 ? 0 : userCount
     if (userCount == 0){
       userDict = {}

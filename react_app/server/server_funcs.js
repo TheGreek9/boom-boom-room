@@ -6,3 +6,7 @@ exports.shuffle = function (a) {
     }
     return a;
 }
+
+exports.getKeyByValue = function (object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}

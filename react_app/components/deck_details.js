@@ -30,6 +30,7 @@ export default class DeckDetailsScreen extends React.Component {
       buriedCards: []
     }
     this.socket = SocketIOClient(ngrok_game_server_site);
+    this.socket.on('confirmDataReceived', this.confirmedDataReceived)
   }
 
   componentDidMount() {
@@ -75,6 +76,9 @@ export default class DeckDetailsScreen extends React.Component {
 
   sendCardData = () => {
     this.socket.emit('deckData', this.state.cardDeck);
+  }
+
+  confirmedDataReceived = () => {
     this.socket.disconnect();
     this.props.navigation.navigate('GameLobby');
   }
