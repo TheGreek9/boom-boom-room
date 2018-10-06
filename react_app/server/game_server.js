@@ -13,34 +13,54 @@ var userCount = 0;
 var userDict = {};
 var userCardDict = {};
 var infoDict = {};
-var nonBuriedCards = {}
-var buriedCards = {}
+var nonBuriedCards = {};
+var buriedCards = {};
+
+var didntSendCards = true;
 
 io.on('connection', function(socket){
 
-  socket.on('gameLobby', function(userName) {
-    console.log(`user ${userName} connected`)
-      userCount++;
-      userDict[userName] = socket.id
-      if (userCount == numberOfPlayers) {
-        var count = 0;
-        for (var sock in io.sockets.sockets) {
-            userCardDict[sock] = cardDeck[count]
-            infoDict['userDict'] = userDict
-            if (nonBuriedCards.length > 0){
-              infoDict['cardDeck'] = nonBuriedCards.pop()
-            } else {
-              infoDict['cardDeck'] = buriedCards.pop()
-            }
-
-            io.to(sock).emit('gameServer', infoDict)
-            count++;
-        }
-      }
+  socket.on('userConnectionCheck', function(userName){
+    userDict[socket.id] = userName
+    console.log(`user ${userName} (${socket.id}) is connected, and numberOfPlayers is ${numberOfPlayers}`)
+    checkGameStart(userDict)
   })
 
+  socket.on('gameLobby', function(userName) {
+    userConnectionCheck()
+  })
+
+  function userConnectionCheck() {
+    var userDict = {};
+    io.emit('userConnectionCheck', true)
+  }
+
+  function checkGameStart(currentUserDict) {
+    userSockets = Object.keys(currentUserDict)
+
+    if (numberOfPlayers == userSockets.length && didntSendCards){
+      didntSendCards = false;
+
+      dealOutCards(userSockets, currentUserDict)
+
+    }
+  }
+
+  function dealOutCards(userSockets, currentUserDict){
+    for (s in userSockets) {
+        if (nonBuriedCards.length > 0){
+          nextCard = nonBuriedCards.pop()
+        } else {
+          nextCard = buriedCards.pop()
+        }
+        sock = userSockets[s]
+        userCardDict[sock] = nextCard
+
+        io.to(sock).emit('startGame', [userCardDict[sock], currentUserDict])
+    }
+  }
+
   socket.on('deckData', function(da_data){
-    userCount++
     numberOfPlayers = da_data.numberOfPlayers;
     nonBuriedCards = server_funcs.shuffle(da_data.cards)
     buriedCards = server_funcs.shuffle(da_data.buriedCards)
@@ -61,10 +81,12 @@ io.on('connection', function(socket){
   })
 
   socket.on('disconnect', function(){
-    userCount--;
-    userCount = userCount < 0 ? 0 : userCount
-    if (userCount == 0){
-      userDict = {}
+    userSocket = socket.id
+    console.log(`@@@@@@@ about to delete socket id ${userSocket}`)
+    delete userDict[userSocket]
+    console.log(`user ${userDict[userSocket]} disconnected, user dict is ${JSON.stringify(userDict)}`)
+    if (Object.keys(userDict).length == 0){
+      numberOfPlayers = 0
     }
   })
   

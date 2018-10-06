@@ -29,11 +29,13 @@ export default class GameLobbyScreen extends React.Component {
         hasCardDetails: false,
         hasSwapDetails: false,
         userNameModalVisible: true,
-        swapReqModalVisible: false
+        swapReqModalVisible: false,
+        userName: ''
     }
 
     this.socket = SocketIOClient(ngrok_game_server_site)
-    this.socket.on('gameServer', this.setData)
+    this.socket.on('userConnectionCheck', this.confirmConnection)
+    this.socket.on('startGame', this.setData)
     this.socket.on('cardSwapRequest', this.showRequestModal)
     this.socket.on('swapAccept', this.acceptSwap)
   }
@@ -47,19 +49,31 @@ export default class GameLobbyScreen extends React.Component {
     this.props.navigation.goBack();
   }
 
-  setData = (text) => {
-    this.setState({
-      userDict: text.userDict,
-      cardText: text.cardDeck,
-      hasCardDetails: true
-    })
-  }
-
-  toGameLobby = (userName) => {
+  userInGameLobby = (userName) => {
     this.socket.emit('gameLobby', userName)
     this.setState(prevState => ({
+      userNameModalVisible: !prevState.userNameModalVisible,
+      userName: userName
+    }))
+  }
+
+  confirmConnection = () => {
+    userName = this.state.userName
+    if (userName) {
+      this.socket.emit('userConnectionCheck', userName)
+    } else {
+      this.setState(prevState => ({
       userNameModalVisible: !prevState.userNameModalVisible
     }))
+    }
+  }
+
+  setData = (text) => {
+    this.setState({
+      cardText: text[0],
+      userDict: text[1],
+      hasCardDetails: true
+    })
   }
 
   showRequestModal = (cardInfo) => {
@@ -125,7 +139,7 @@ export default class GameLobbyScreen extends React.Component {
       <View style={styles.lobbyView}>
         <UserNameModal
           isModalVisible={userNameModalVisible}
-          onPress={this.toGameLobby}
+          onPress={this.userInGameLobby}
         />
         <SwapRequestModal
           isModalVisible={swapReqModalVisible}
