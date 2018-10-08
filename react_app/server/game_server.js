@@ -25,6 +25,7 @@ io.on('connection', function(socket){
 //  *****Initial Game Play Starting Functions*****
 
   socket.on('gameLobby', function(userName) {
+    io.to(socket.id).emit('acceptUser', true)
     if (didntSendCards) {
       userConnectionCheck()
     } else if (disconnectDict[userName]) {

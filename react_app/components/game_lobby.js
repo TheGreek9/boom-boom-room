@@ -34,6 +34,7 @@ export default class GameLobbyScreen extends React.Component {
     }
 
     this.socket = SocketIOClient(ngrok_game_server_site)
+    this.socket.on('acceptUser', this.hideUserNameModal)
     this.socket.on('userConnectionCheck', this.confirmConnection)
     this.socket.on('startGame', this.setData)
     this.socket.on('cardSwapRequest', this.showRequestModal)
@@ -52,8 +53,13 @@ export default class GameLobbyScreen extends React.Component {
   userInGameLobby = (userName) => {
     this.socket.emit('gameLobby', userName)
     this.setState(prevState => ({
-      userNameModalVisible: !prevState.userNameModalVisible,
       userName: userName
+    }))
+  }
+
+  hideUserNameModal = () => {
+    this.setState(prevState => ({
+      userNameModalVisible: !prevState.userNameModalVisible
     }))
   }
 
@@ -63,7 +69,7 @@ export default class GameLobbyScreen extends React.Component {
       this.socket.emit('userConnectionCheck', userName)
     } else {
       this.setState(prevState => ({
-      userNameModalVisible: !prevState.userNameModalVisible
+      userNameModalVisible: true
     }))
     }
   }
