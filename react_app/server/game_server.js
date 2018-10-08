@@ -17,17 +17,22 @@ var nonBuriedCards = {};
 var buriedCards = {};
 
 var didntSendCards = true;
+var disconnectDict = {};
+
 
 io.on('connection', function(socket){
 
-  socket.on('userConnectionCheck', function(userName){
-    userDict[socket.id] = userName
-    console.log('\n' + `user ${userName} (${socket.id}) is connected, and numberOfPlayers is ${numberOfPlayers}`)
-    checkGameStart(userDict)
-  })
+//*****Initial Game Play Starting Functions*****
 
   socket.on('gameLobby', function(userName) {
-    userConnectionCheck()
+    if (didntSendCards) {
+      userConnectionCheck()
+    } else if (disconnectDict[userName]) {
+      oldCard = server_funcs.popFromDict(disconnectDict, userName)
+      userCardDict[socket.id] = oldCard
+      userDict[socket.id] = userName
+      io.to(socket.id).emit('startGame', [oldCard, userDict])
+    }
   })
 
   function userConnectionCheck() {
@@ -35,15 +40,19 @@ io.on('connection', function(socket){
     io.emit('userConnectionCheck', true)
   }
 
+  socket.on('userConnectionCheck', function(userName){
+    userDict[socket.id] = userName
+    console.log(`user ${userName} (${socket.id}) is connected`)
+    checkGameStart(userDict)
+  })
+
   function checkGameStart(currentUserDict) {
     userSockets = Object.keys(currentUserDict)
 
     if (numberOfPlayers == userSockets.length && didntSendCards){
-      console.log('**Sending users Cards')
       didntSendCards = false;
 
       dealOutCards(userSockets, currentUserDict)
-
     }
   }
 
@@ -62,14 +71,17 @@ io.on('connection', function(socket){
   }
 
   socket.on('deckData', function(da_data){
-    console.log('\n' + `da deck data is ${JSON.stringify(da_data)}` + '\n')
     numberOfPlayers = da_data.numberOfPlayers;
     nonBuriedCards = server_funcs.shuffle(da_data.cards)
     buriedCards = server_funcs.shuffle(da_data.buriedCards)
+
     if (Object.keys(nonBuriedCards).length > 0) {
       socket.emit('confirmDataReceived', true)
     }
   });
+
+
+//*****Swap User card functions*****
 
   socket.on('swapWithUser', function(userSocket){
     cardInfo = [socket.id, userCardDict[socket.id]]
@@ -82,21 +94,28 @@ io.on('connection', function(socket){
     io.to(userCardInfo[0]).emit('swapAccept', userCardInfo[1])
   })
 
+
+//*****Disconnecting*****
+
   socket.on('disconnect', function(){
     userSocket = socket.id
     console.log('\n' + `user ${userDict[userSocket]} is disconnecting`)
-    console.log(`-- about to delete socket id ${userSocket}`)
-    delete userDict[userSocket]
+
+    disconnectedCard = server_funcs.popFromDict(userCardDict, userSocket)
+    disconnectedUsername = userDict[userSocket]
+    disconnectDict[disconnectedUsername] = disconnectedCard
     delete userCardDict[userSocket]
-    console.log(`-- user dict is ${JSON.stringify(userDict)} and card dict is ${JSON.stringify(userCardDict)}`)
+    delete userDict[userSocket]
+
     if (Object.keys(userDict).length == 0){
       numberOfPlayers = 0
       didntSendCards = true;
+      disconnectDict = {}
     }
   })
   
 });
 
 http.listen(6969, function(){
-    console.log('listening on *:6969');
+    console.log('listening on *:6969\n');
 });

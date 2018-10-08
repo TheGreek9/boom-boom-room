@@ -10,3 +10,9 @@ exports.shuffle = function (a) {
 exports.getKeyByValue = function (object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
+
+exports.popFromDict = function (object, key) {
+  removedItem = object[key]
+  delete object[key]
+  return removedItem
+}
