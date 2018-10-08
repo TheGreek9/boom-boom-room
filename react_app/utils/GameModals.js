@@ -4,6 +4,7 @@ import { List, ListItem, Card } from 'react-native-elements';
 import Modal from "react-native-modal";
 
 import { MainButton } from '../utils/Button';
+import { getKeyByValue } from '../utils/Miscellaneous';
 
 export class UserNameModal extends React.Component{
   render(){
@@ -31,7 +32,8 @@ export class UserNameModal extends React.Component{
 export class UserListModal extends React.Component{
 
   swapWithUser  = (userNameInfo) => {
-    this.props.socket.emit('swapWithUser', this.props.userDict[userNameInfo.item])
+    socketId = getKeyByValue(this.props.userDict, userNameInfo.item)
+    this.props.socket.emit('swapWithUser', socketId)
     this.props.onPress()
   }
 
@@ -39,7 +41,7 @@ export class UserListModal extends React.Component{
     const onPress = this.props.onPress
     const isModalVisible = this.props.isModalVisible
     const userDict = this.props.userDict
-    const userList = Object.keys(userDict)
+    const userList = Object.values(userDict)
     return (
       <View>
         <Modal isVisible={isModalVisible}  onBackdropPress={onPress}>

@@ -77,7 +77,7 @@ export default class GameLobbyScreen extends React.Component {
   }
 
   showRequestModal = (cardInfo) => {
-    let senderUserName = getKeyByValue(this.state.userDict, cardInfo[0])
+    let senderUserName = this.state.userDict[cardInfo[0]]
     this.setState({
       swapReqModalVisible: true,
       requestCardUser: cardInfo[0],

@@ -22,7 +22,7 @@ var disconnectDict = {};
 
 io.on('connection', function(socket){
 
-//*****Initial Game Play Starting Functions*****
+//  *****Initial Game Play Starting Functions*****
 
   socket.on('gameLobby', function(userName) {
     if (didntSendCards) {
@@ -81,7 +81,11 @@ io.on('connection', function(socket){
   });
 
 
-//*****Swap User card functions*****
+//  *****Swap User card functions*****
+
+  socket.on('getUserDict', function(){
+    io.to(socket.id).emit('currentUserDict', userDict)
+  })
 
   socket.on('swapWithUser', function(userSocket){
     cardInfo = [socket.id, userCardDict[socket.id]]
@@ -95,7 +99,7 @@ io.on('connection', function(socket){
   })
 
 
-//*****Disconnecting*****
+//  *****Disconnecting*****
 
   socket.on('disconnect', function(){
     userSocket = socket.id

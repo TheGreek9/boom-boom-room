@@ -12,8 +12,10 @@ export default class CardDetails extends React.Component {
         super(props);
         this.state = {
             cardFlipBool: true,
-            isModalVisible: false
+            isModalVisible: false,
+            userDict: {}
         }
+        this.props.socket.on('currentUserDict', this.showCardSwapModal)
     }
 
     changeCard = () => {
@@ -22,17 +24,28 @@ export default class CardDetails extends React.Component {
         }));
     }
 
-    userCardSwap = () => {
-    this.setState(prevState => ({
-      isModalVisible: !prevState.isModalVisible
-    }))
-  }
+    getUserDict = () => {
+      this.props.socket.emit('getUserDict', true)
+    }
+
+    showCardSwapModal = (currentUserDict) => {
+      this.setState(prevState => ({
+        userDict: currentUserDict,
+        isModalVisible: !prevState.isModalVisible
+      }))
+    }
+
+    hideCardSwapModal = () => {
+      this.setState(prevState => ({
+        isModalVisible: !prevState.isModalVisible
+      }))
+    }
 
     render() {
         let textShow = this.state.cardFlipBool;
         let modalVisible = this.state.isModalVisible;
         let cardSwap = !this.props.cardSwap;
-        let userDict = this.props.userDict;
+        let userDict = this.state.userDict;
 
         if (textShow) {
 
@@ -58,13 +71,13 @@ export default class CardDetails extends React.Component {
             />
             <UserListModal
                 isModalVisible={modalVisible}
-                onPress={this.userCardSwap}
+                onPress={this.hideCardSwapModal}
                 userDict={userDict}
                 socket={this.props.socket}
             />
             <StyleButton
               title="Card Swap"
-              onPress={this.userCardSwap}
+              onPress={this.getUserDict}
               disabled={cardSwap}
               style={{height: 45, width: 330, backgroundColor: '#006699'}}
             />
