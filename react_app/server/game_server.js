@@ -118,6 +118,24 @@ io.on('connection', function(socket){
       disconnectDict = {}
     }
   })
+
+  socket.on('disconnectAll', function(){
+    io.emit('forceDisconnect', true)
+
+    var numberOfPlayers;
+    var cardDeck = {};
+    var userCount = 0;
+    var userDict = {};
+    var userCardDict = {};
+    var infoDict = {};
+    var nonBuriedCards = {};
+    var buriedCards = {};
+
+    var didntSendCards = true;
+    var disconnectDict = {};
+
+    console.log('Force Disconnected everyone')
+  })
   
 });
 

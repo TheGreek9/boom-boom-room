@@ -39,6 +39,7 @@ export default class GameLobbyScreen extends React.Component {
     this.socket.on('startGame', this.setData)
     this.socket.on('cardSwapRequest', this.showRequestModal)
     this.socket.on('swapAccept', this.acceptSwap)
+    this.socket.on('forceDisconnect', this.discIt)
   }
 
   componentDidMount() {

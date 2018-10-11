@@ -112,6 +112,31 @@ export class CardDescriptionModal extends React.Component{
   }
 }
 
+export class ResetServerModal extends React.Component{
+  render(){
+    const onConfirm = this.props.onConfirm
+    const onCancel = this.props.onCancel
+    const isModalVisible = this.props.isModalVisible
+    return (
+      <View>
+        <Modal isVisible={isModalVisible} onBackdropPress={onCancel}>
+          <View style={{marginTop: 450}}>
+            <Text style={{color: "white"}}>Are you sure you want to kick everyone off the server?</Text>
+            <View style={styles.swapContainer}>
+              <View style={styles.swapButtonContainer}>
+                <Button title="Yes" onPress={onConfirm}/>
+              </View>
+              <View style={styles.swapButtonContainer}>
+                <Button title="Hell Nah" onPress={onCancel}/>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    )
+  }
+}
+
 
 const styles = StyleSheet.create({
   swapContainer: {
