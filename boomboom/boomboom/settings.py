@@ -31,7 +31,7 @@ SECRET_KEY = '%-im127$)nioqb(i5a7@-na+drp94ia49e*iqv%&=%p7((2)+s'
 DEBUG = True
 
 NGROK_DJANGO_URI = os.getenv("NGROK_DJANGO_URI")
-ALLOWED_HOSTS = ['localhost', NGROK_DJANGO_URI]
+ALLOWED_HOSTS = ['localhost', NGROK_DJANGO_URI, 'boomboomgraphql-dev.us-east-1.elasticbeanstalk.com']
 
 
 # Application definition
