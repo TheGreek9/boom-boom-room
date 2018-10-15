@@ -8,14 +8,10 @@ app.get('/', function(req, res){
 });
 
 var numberOfPlayers;
-var cardDeck = {};
-var userCount = 0;
 var userDict = {};
 var userCardDict = {};
-var infoDict = {};
 var nonBuriedCards = {};
 var buriedCards = {};
-
 var didntSendCards = true;
 var disconnectDict = {};
 
@@ -37,13 +33,14 @@ io.on('connection', function(socket){
   })
 
   function userConnectionCheck() {
-    var userDict = {};
+    userDict = {};
     io.emit('userConnectionCheck', true)
   }
 
   socket.on('userConnectionCheck', function(userName){
     userDict[socket.id] = userName
     console.log(`user ${userName} (${socket.id}) is connected`)
+    console.log(`user dict is now ${JSON.stringify(userDict)}`)
     checkGameStart(userDict)
   })
 
@@ -122,17 +119,14 @@ io.on('connection', function(socket){
   socket.on('disconnectAll', function(){
     io.emit('forceDisconnect', true)
 
-    var numberOfPlayers;
-    var cardDeck = {};
-    var userCount = 0;
-    var userDict = {};
-    var userCardDict = {};
-    var infoDict = {};
-    var nonBuriedCards = {};
-    var buriedCards = {};
-
-    var didntSendCards = true;
-    var disconnectDict = {};
+    numberOfPlayers;
+    userDict = {};
+    userCardDict = {};
+    infoDict = {};
+    nonBuriedCards = {};
+    buriedCards = {};
+    didntSendCards = true;
+    disconnectDict = {};
 
     console.log('Force Disconnected everyone')
   })
