@@ -1,0 +1,13 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "thegreek9/boomcardserver",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "6969"
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}

@@ -1,0 +1,16 @@
+version: "3"
+services:
+  boomgraphql:
+    image: thegreek9/boomboomgraphql
+    container_name: boomgraphql
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 8000:8000
+  boomcardserver:
+    image: thegreek9/boomcardserver
+    container_name: boomcardserver
+    environment:
+    - discovery.type=single-node
+    ports:
+    - 6969:6969

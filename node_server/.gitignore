@@ -24,3 +24,8 @@ __pycache__
 boom_boom_venv
 EnvironmentVars.js
 .env
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
