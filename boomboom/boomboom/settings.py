@@ -25,13 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%-im127$)nioqb(i5a7@-na+drp94ia49e*iqv%&=%p7((2)+s'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-NGROK_DJANGO_URI = os.getenv("NGROK_DJANGO_URI")
-ALLOWED_HOSTS = ['localhost', NGROK_DJANGO_URI, 'boomboomgraphql-dev.us-east-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['localhost', 'boomboomgraphql-dev.us-east-1.elasticbeanstalk.com']
 
 
 # Application definition
