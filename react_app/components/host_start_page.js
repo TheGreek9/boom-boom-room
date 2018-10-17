@@ -45,7 +45,7 @@ export default class HostPageScreen extends React.Component {
         return (
           <View style={styles.hostScreenContainer}>
             <Image
-              source={require('../../boomboom/images/boom_boom_title.png')}
+              source={require('../utils/images/boom_boom_title.png')}
               style={styles.homeBanner}
               resizeMode='center'
             />

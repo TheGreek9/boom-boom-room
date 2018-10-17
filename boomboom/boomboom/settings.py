@@ -14,8 +14,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-env_path = Path('/Users/Spyro/Developer/boom_boom') / '.env'
-load_dotenv(dotenv_path=env_path)
+env_path = Path('./.env')
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = eval(os.getenv("DEBUG_BOOL"))
 
 ALLOWED_HOSTS = ['localhost', 'boomboomgraphql-dev.us-east-1.elasticbeanstalk.com']
 
@@ -130,5 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.dirname('var/static/')
+
 
 MEDIA_ROOT = '/Users/Spyro/Developer/boom_boom/boomboom/images'

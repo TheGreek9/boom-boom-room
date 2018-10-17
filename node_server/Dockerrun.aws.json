@@ -9,5 +9,5 @@
       "ContainerPort": "6969"
     }
   ],
-  "Logging": "/var/log/nginx"
+  "Logging": "/var/logs"
 }

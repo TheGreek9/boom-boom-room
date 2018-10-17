@@ -11,7 +11,7 @@ export default class HomeScreen extends React.Component {
         return (
           <View style={styles.homeScreenContainer}>
             <Image
-              source={require('../../boomboom/images/boom_boom_title.png')}
+              source={require('../utils/images/boom_boom_title.png')}
               style={styles.homeBanner}
               resizeMode='center'
             />
