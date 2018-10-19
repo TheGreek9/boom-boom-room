@@ -15,6 +15,9 @@ class Card(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['title']
+
 
 class CardSet(models.Model):
     user_id = models.IntegerField()
@@ -26,9 +29,3 @@ class CardSet(models.Model):
 
     def __str__(self):
         return self.name if self.name else "Card set from user {}".format(self.user_id)
-
-    # def save(self, *args, **kwargs):
-    #     if not self.number_of_players:
-    #         self.number_of_players = self.cards.count()
-    #
-    #     super().save(self, *args, **kwargs)

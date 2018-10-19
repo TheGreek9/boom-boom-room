@@ -26,6 +26,7 @@ var imagePathObject = {
     'Grey_Victim.png': require('./images/Grey_Victim.png'),
     'Grey_Wife.png': require('./images/Grey_Wife.png'),
     'Hot_Potato.png': require('./images/Hot_Potato.png'),
+    'Leprechaun.png': require('./images/Leprechaun.png'),
     'Martyr.png': require('./images/Martyr.png'),
     'Nurse.png': require('./images/Nurse.png'),
     'President.png': require('./images/President.png'),
